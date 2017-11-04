@@ -1,0 +1,13 @@
+﻿  utils.cpp
+c:\users\miquel\desktop\sdl_pathfinding\src\utils.cpp(5): fatal error C1083: No se puede abrir el archivo incluir: 'SDL.h': No such file or directory
+  SteeringBehavior.cpp
+c:\users\miquel\desktop\sdl_pathfinding\src\agent.h(4): fatal error C1083: No se puede abrir el archivo incluir: 'SDL.h': No such file or directory
+  SDL_SimpleApp.cpp
+c:\users\miquel\desktop\sdl_pathfinding\src\sdl_simpleapp.h(3): fatal error C1083: No se puede abrir el archivo incluir: 'SDL.h': No such file or directory
+  ScenePathFinding.cpp
+c:\users\miquel\desktop\sdl_pathfinding\src\scene.h(3): fatal error C1083: No se puede abrir el archivo incluir: 'SDL.h': No such file or directory
+  main.cpp
+c:\users\miquel\desktop\sdl_pathfinding\src\main.cpp(2): fatal error C1083: No se puede abrir el archivo incluir: 'SDL.h': No such file or directory
+  Agent.cpp
+c:\users\miquel\desktop\sdl_pathfinding\src\agent.h(4): fatal error C1083: No se puede abrir el archivo incluir: 'SDL.h': No such file or directory
+  Generando código...
