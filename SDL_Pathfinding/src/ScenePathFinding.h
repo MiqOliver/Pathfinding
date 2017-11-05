@@ -7,6 +7,8 @@
 #include "Path.h"
 #include "Node.h"
 
+enum algorithms{BFS, DIJKSTRA, GBFS, A};
+
 class ScenePathFinding :
 	public Scene
 {
@@ -25,6 +27,8 @@ private:
 	int num_cell_x;
 	int num_cell_y;
 	bool draw_grid;
+	bool draw_nodes;
+	bool draw_path;
 	std::vector<SDL_Rect> maze_rects;
 	void drawMaze();
 	void drawCoin();
@@ -38,5 +42,5 @@ private:
 	bool isValidCell(Vector2D cell);
 
 	std::list<Node*> nodes;
-	
+	algorithms algorithm;
 };

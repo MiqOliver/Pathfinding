@@ -1,2 +1,7 @@
-﻿  SDL_Pathfinding.vcxproj -> C:\Users\Miquel\Desktop\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
-  SDL_Pathfinding.vcxproj -> C:\Users\Miquel\Desktop\SDL_Pathfinding\\bin\SDL_Pathfinding.pdb (Partial PDB)
+﻿  ScenePathFinding.cpp
+d:\enti\3r\pathfinding\sdl_pathfinding\src\scenepathfinding.cpp(135): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+  Generando código...
+  Omitiendo... (no se detectaron cambios relevantes)
+  main.cpp
+  SDL_Pathfinding.vcxproj -> D:\ENTI\3r\Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
+  SDL_Pathfinding.vcxproj -> D:\ENTI\3r\Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.pdb (Partial PDB)

@@ -5,6 +5,10 @@ using namespace std;
 ScenePathFinding::ScenePathFinding()
 {
 	draw_grid = false;
+	draw_nodes = false;
+	draw_path = true;
+
+	algorithm = BFS;
 
 	num_cell_x = SRC_WIDTH / CELL_SIZE;
 	num_cell_y = SRC_HEIGHT / CELL_SIZE;
@@ -53,8 +57,13 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 	/* Keyboard & Mouse events */
 	switch (event->type) {
 	case SDL_KEYDOWN:
-		if (event->key.keysym.scancode == SDL_SCANCODE_SPACE)
-			draw_grid = !draw_grid;
+		if (event->key.keysym.scancode == SDL_SCANCODE_SPACE)		draw_grid = !draw_grid;
+		if (event->key.keysym.scancode == SDL_SCANCODE_N)			draw_nodes = !draw_nodes;
+		if (event->key.keysym.scancode == SDL_SCANCODE_P)			draw_path = !draw_path;
+		if (event->key.keysym.scancode == SDL_SCANCODE_B)			algorithm = BFS;
+		else if (event->key.keysym.scancode == SDL_SCANCODE_D)		algorithm = DIJKSTRA;
+		else if (event->key.keysym.scancode == SDL_SCANCODE_G)		algorithm = GBFS;
+		else if (event->key.keysym.scancode == SDL_SCANCODE_A)		algorithm = BFS;
 		break;
 	case SDL_MOUSEMOTION:
 	case SDL_MOUSEBUTTONDOWN:
@@ -121,8 +130,14 @@ void ScenePathFinding::draw()
 {
 	drawMaze();
 	drawCoin();
-
-
+	
+	//Visual debug of the nodes, draw them all
+	if (draw_nodes) {
+		for each (Node* n in nodes)
+		{
+			draw_circle(TheApp::Instance()->getRenderer(), n->position.x, n->position.y, CELL_SIZE / 2, 0, 100, 150, 127);
+		}
+	}
 	if (draw_grid)
 	{
 		SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 255, 255, 255, 127);
@@ -135,12 +150,14 @@ void ScenePathFinding::draw()
 			SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), 0, j, SRC_WIDTH, j);
 		}
 	}
-
-	for (int i = 0; i < (int)path.points.size(); i++)
-	{
-		draw_circle(TheApp::Instance()->getRenderer(), (int)(path.points[i].x), (int)(path.points[i].y), 15, 255, 255, 0, 255);
-		if (i > 0)
-			SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)(path.points[i - 1].x), (int)(path.points[i - 1].y), (int)(path.points[i].x), (int)(path.points[i].y));
+	
+	if (draw_path) {
+		for (int i = 0; i < (int)path.points.size(); i++)
+		{
+			draw_circle(TheApp::Instance()->getRenderer(), (int)(path.points[i].x), (int)(path.points[i].y), 15, 255, 255, 0, 255);
+			if (i > 0)
+				SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)(path.points[i - 1].x), (int)(path.points[i - 1].y), (int)(path.points[i].x), (int)(path.points[i].y));
+		}
 	}
 
 	draw_circle(TheApp::Instance()->getRenderer(), (int)currentTarget.x, (int)currentTarget.y, 15, 255, 0, 0, 255);
@@ -157,7 +174,6 @@ void ScenePathFinding::drawMaze()
 {
 	if (draw_grid)
 	{
-
 		SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 0, 0, 255, 255);
 		for (unsigned int i = 0; i < maze_rects.size(); i++)
 			SDL_RenderFillRect(TheApp::Instance()->getRenderer(), &maze_rects[i]);
@@ -178,7 +194,6 @@ void ScenePathFinding::drawCoin()
 
 void ScenePathFinding::initMaze()
 {
-
 	// Initialize a list of Rectagles describing the maze geometry (useful for collision avoidance)
 	SDL_Rect rect = { 0, 0, 1280, 32 };
 	maze_rects.push_back(rect);
@@ -272,6 +287,7 @@ void ScenePathFinding::initMaze()
 				    break;
 				}
 			}
+			//Creation of the nodes in the free cells
 			if (terrain[i][j] != 0) {
 				Node* n = new Node;
 				n->position = cell_center;
@@ -279,6 +295,8 @@ void ScenePathFinding::initMaze()
 			}
 		}
 	}
+
+	//Adding the adjacent nodes to each one
 	for each (Node* n in nodes)
 	{
 		for each (Node* n2 in nodes)
