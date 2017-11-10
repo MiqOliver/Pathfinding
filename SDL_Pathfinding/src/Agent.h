@@ -7,6 +7,7 @@
 #include "Vector2D.h"
 #include "utils.h"
 #include "SteeringBehavior.h"
+#include "Node.h"
 
 
 class Agent

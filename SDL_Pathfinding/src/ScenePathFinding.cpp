@@ -133,10 +133,16 @@ void ScenePathFinding::draw()
 	
 	//Visual debug of the nodes, draw them all
 	if (draw_nodes) {
+		
 		for each (Node* n in nodes)
 		{
 			draw_circle(TheApp::Instance()->getRenderer(), n->position.x, n->position.y, CELL_SIZE / 2, 0, 100, 150, 127);
 		}
+		/*
+		for each (Node* n in graph)
+		{
+			draw_circle(TheApp::Instance()->getRenderer(), n->position.x, n->position.y, CELL_SIZE / 2, 0, 100, 150, 127);
+		}*/
 	}
 	if (draw_grid)
 	{
@@ -319,6 +325,11 @@ void ScenePathFinding::initMaze()
 			}
 		}
 	}
+
+	for each (Node* n in nodes) {
+		graph.insert(std::pair<Vector2D,Node*>(n->position,n));
+	}
+
 }
 
 bool ScenePathFinding::loadTextures(char* filename_bg, char* filename_coin)

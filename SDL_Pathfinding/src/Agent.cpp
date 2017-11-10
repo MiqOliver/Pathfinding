@@ -156,3 +156,4 @@ bool Agent::loadSpriteTexture(char* filename, int _num_frames)
 
 	return true;
 }
+

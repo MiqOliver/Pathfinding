@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <list>
+#include <map>
 #include <time.h>
 #include "Scene.h"
 #include "Agent.h"
@@ -42,5 +43,6 @@ private:
 	bool isValidCell(Vector2D cell);
 
 	std::list<Node*> nodes;
+	std::map<Vector2D, Node*> graph;
 	algorithms algorithm;
 };
