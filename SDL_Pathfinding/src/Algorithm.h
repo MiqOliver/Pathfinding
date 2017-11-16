@@ -4,6 +4,7 @@
 #include "Agent.h"
 #include "Node.h"
 #include "Vector2D.h"
+#include "Path.h"
 
 using namespace std;
 
@@ -14,11 +15,9 @@ class Algorithm {
 		Algorithm();
 		~Algorithm();
 
-		vector<Node*> path; 
-		queue<Node*> frontier; //Empty
-		vector<Node*> visited; //Empty
+		Path* path; 
 
-		vector<Node*> BFS(Node target);
+		void BFS(Node*, Node*, Algorithm);
 
 
 };

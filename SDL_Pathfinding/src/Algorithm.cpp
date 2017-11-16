@@ -1,18 +1,15 @@
 #include "Algorithm.h"
 
-using namespace std;
+Algorithm::Algorithm(){
 
-Algorithm::Algorithm()
-{
 }
 
-Algorithm::~Algorithm()
-{
+Algorithm::~Algorithm(){
+
 }
 
-
-vector<Node*> Algorithm::BFS(Node target) {
-
-	//frontier.push();
-
+void Algorithm::BFS(Node* target, Node* origin, Algorithm a) {
+	path = new Path();
+	queue<Node*> frontier;
+	vector<Node*> visited;
 }
