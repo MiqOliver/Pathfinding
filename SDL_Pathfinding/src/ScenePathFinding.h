@@ -41,6 +41,6 @@ private:
 	bool isValidCell(Vector2D cell);
 
 	std::list<Node*> nodes;
-	//std::map<Vector2D, Node*> graph;
+	std::map<Vector2D, Node*> graph;
 	algorithms algorithm;
 };

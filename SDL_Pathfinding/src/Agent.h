@@ -8,6 +8,7 @@
 #include "utils.h"
 #include "SteeringBehavior.h"
 #include "Node.h"
+#include "Algorithm.h"
 
 
 class Agent

@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include<map>
 #include <queue>
 #include "Agent.h"
 #include "Node.h"
@@ -15,9 +16,5 @@ class Algorithm {
 		Algorithm();
 		~Algorithm();
 
-		Path* path; 
-
-		void BFS(Node*, Node*, Algorithm);
-
-
+		Path* BFS(Node* target, Node* origin);
 };

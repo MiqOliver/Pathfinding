@@ -143,6 +143,23 @@ struct Vector2D
 	}
 };
 
+
+
+static inline bool operator < (const Vector2D& lhs, const Vector2D& rhs) {
+	bool temp = false;
+	if (lhs.y > rhs.y) {
+		temp = true;
+	}
+
+	else if (lhs.y == rhs.y) {
+		if (lhs.x > rhs.x) {
+			temp = true;
+		}
+	}
+
+	return temp;
+}
+
 namespace Vector2DUtils
 {
 	static Vector2D GetClosestPoint(Vector2D start, Vector2D end, Vector2D point)

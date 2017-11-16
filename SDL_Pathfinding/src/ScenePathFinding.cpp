@@ -72,11 +72,14 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 			Vector2D cell = pix2cell(Vector2D((float)(event->button.x), (float)(event->button.y)));
 			if (isValidCell(cell))
 			{
-				if (path.points.size() > 0)
+				/*if (path.points.size() > 0)
 					if (path.points[path.points.size() - 1] == cell2pix(cell))
 						break;
 
-				path.points.push_back(cell2pix(cell));
+				path.points.push_back(cell2pix(cell));*/
+
+				path = *Algorithm().BFS(graph[cell], graph[pix2cell(Vector2D((float)(agents[0]->getPosition().x), (float)(agents[0]->getPosition().y)))]);
+
 			}
 		}
 		break;
@@ -327,7 +330,7 @@ void ScenePathFinding::initMaze()
 	}
 
 	for each (Node* n in nodes) {
-		graph.insert(std::pair<Vector2D,Node*>(n->position,n));
+		graph.insert(pair<Vector2D,Node*>(n->position,n));
 	}
 
 }
