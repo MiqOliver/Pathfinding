@@ -16,5 +16,5 @@ class Algorithm {
 		Algorithm();
 		~Algorithm();
 
-		Path* BFS(Node* target, Node* origin);
+		static Path BFS(Node* target, Node* origin);
 };

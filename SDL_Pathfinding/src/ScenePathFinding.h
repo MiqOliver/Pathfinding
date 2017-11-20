@@ -7,6 +7,7 @@
 #include "Agent.h"
 #include "Path.h"
 #include "Node.h"
+#include "Algorithm.h"
 
 class ScenePathFinding :
 	public Scene
@@ -40,7 +41,7 @@ private:
 	Vector2D pix2cell(Vector2D pix);
 	bool isValidCell(Vector2D cell);
 
-	std::list<Node*> nodes;
+	std::vector<Node*> nodes;
 	std::map<Vector2D, Node*> graph;
 	algorithms algorithm;
 };

@@ -1,13 +1,4 @@
 ﻿  ScenePathFinding.cpp
-c:\users\mmartos\documents\github\pathfinding\sdl_pathfinding\src\scenepathfinding.cpp(142): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Generating Code...
-  Compiling...
-  Algorithm.cpp
-c:\users\mmartos\documents\github\pathfinding\sdl_pathfinding\src\algorithm.cpp(32): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  main.cpp
-  SteeringBehavior.cpp
-  Agent.cpp
-  SDL_Pathfinding.vcxproj -> C:\Users\mmartos\Documents\GitHub\Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
-  SDL_Pathfinding.vcxproj -> C:\Users\mmartos\Documents\GitHub\Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.pdb (Partial PDB)
+d:\enti\3r\pathfinding\sdl_pathfinding\src\scenepathfinding.cpp(145): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+  SDL_Pathfinding.vcxproj -> D:\ENTI\3r\Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
+  SDL_Pathfinding.vcxproj -> D:\ENTI\3r\Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.pdb (Partial PDB)

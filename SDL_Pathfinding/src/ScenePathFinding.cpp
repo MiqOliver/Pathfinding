@@ -78,8 +78,8 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 
 				path.points.push_back(cell2pix(cell));*/
 
-				path = *Algorithm().BFS(graph[cell], graph[pix2cell(Vector2D((float)(agents[0]->getPosition().x), (float)(agents[0]->getPosition().y)))]);
-
+				//path = *Algorithm().BFS(graph[cell], graph[pix2cell(Vector2D((float)(agents[0]->getPosition().x), (float)(agents[0]->getPosition().y)))]);
+				path = Algorithm::BFS(graph[cell], nodes[550]);
 			}
 		}
 		break;
@@ -136,16 +136,14 @@ void ScenePathFinding::draw()
 	
 	//Visual debug of the nodes, draw them all
 	if (draw_nodes) {
-		
-		for each (Node* n in nodes)
+		//for each (Node* n in nodes)
+		//{
+		//	draw_circle(TheApp::Instance()->getRenderer(), n->position.x, n->position.y, CELL_SIZE / 2, 0, 100, 150, 127);
+		//}
+		for each (pair<Vector2D, Node*> n in graph)
 		{
-			draw_circle(TheApp::Instance()->getRenderer(), n->position.x, n->position.y, CELL_SIZE / 2, 0, 100, 150, 127);
+			draw_circle(TheApp::Instance()->getRenderer(), n.second->position.x, n.second->position.y, CELL_SIZE / 2, 0, 100, 150, 127);
 		}
-		/*
-		for each (Node* n in graph)
-		{
-			draw_circle(TheApp::Instance()->getRenderer(), n->position.x, n->position.y, CELL_SIZE / 2, 0, 100, 150, 127);
-		}*/
 	}
 	if (draw_grid)
 	{
