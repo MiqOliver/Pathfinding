@@ -15,8 +15,15 @@ struct duo {
 
 struct Node {
 	Vector2D position;
-	vector<duo<Node*, float>> adyacents;
+	vector<duo<Node*, int>> adyacents;
 	int terrain;
+
 	Node(Vector2D pos) : position{ pos } {}
 	Node() = default;
+};
+
+struct CompareNodesByTerrain {
+	inline bool operator () (const Node* lhs, const Node* rhs) const {
+		return lhs->terrain < rhs->terrain;
+	}
 };

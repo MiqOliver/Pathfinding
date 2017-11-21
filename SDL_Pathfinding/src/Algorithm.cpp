@@ -22,7 +22,7 @@ Path Algorithm::BFS(Node* target, Node* origin) {
 		
 		if (current == target) break; //Early exit
 
-		for each(duo<Node*,float> n in current->adyacents) {
+		for each(duo<Node*,int> n in current->adyacents) {
 			if (!came_from[n.x]) {
 				frontier.push(n.x);
 				came_from[n.x] = current;
@@ -45,21 +45,22 @@ Path Algorithm::BFS(Node* target, Node* origin) {
 
 Path Algorithm::Dijkstra(Node* target, Node* origin) {
 	Path path;
-	priority_queue<Node*> frontier;
+	priority_queue<Node*, vector<Node*>, CompareNodesByTerrain> frontier;
+	//priority_queue<Node*> frontier;
 	map<Node*, Node*> came_from;
-	map<Node*, float> cost_so_far;
+	map<Node*, int> cost_so_far;
 	Node* current;
 
 	frontier.push(origin);
 	came_from[origin] = origin;
-	cost_so_far[origin] = 0.f;
+	cost_so_far[origin] = 0;
 
 	while (!frontier.empty()) {
 		current = frontier.top();
 
 		if (current == target) break; //Early exit
 
-		for each(duo<Node*, float> n in current->adyacents) {
+		for each(duo<Node*, int> n in current->adyacents) {
 			int new_cost = cost_so_far[current] + n.y;
 			if (!cost_so_far[n.x] || cost_so_far[n.x] > new_cost) {
 				cost_so_far[n.x] = new_cost;

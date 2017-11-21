@@ -8,7 +8,7 @@ ScenePathFinding::ScenePathFinding()
 	draw_nodes = false;
 	draw_path = true;
 
-	algorithm = DIJKSTRA;
+	algorithm = BFS;
 
 	num_cell_x = SRC_WIDTH / CELL_SIZE;
 	num_cell_y = SRC_HEIGHT / CELL_SIZE;
@@ -305,19 +305,19 @@ void ScenePathFinding::initMaze()
 	maze_water.push_back(rect);
 
 	//Mud rects
-	rect = { 160, 192, 32, 96 };
+	rect = { 128, 160, 32, 96 };
 	maze_mud.push_back(rect);
-	rect = { 416, 160, 96, 32 };
+	rect = { 384, 128, 96, 32 };
 	maze_mud.push_back(rect);
-	rect = { 256, 384, 96, 160 };
+	rect = { 224, 352, 96, 160 };
 	maze_mud.push_back(rect);
-	rect = { 416, 672, 64, 96 };
+	rect = { 384, 640, 64, 96 };
 	maze_mud.push_back(rect);
-	rect = { 960, 448, 32, 96 };
+	rect = { 928, 416, 32, 96 };
 	maze_mud.push_back(rect);
-	rect = { 1024, 160, 32, 96 };
+	rect = { 992, 128, 32, 96 };
 	maze_mud.push_back(rect);
-	rect = { 1184, 480, 96, 64 };
+	rect = { 1152, 448, 96, 64 };
 	maze_mud.push_back(rect);
 
 	// Initialize the terrain matrix (for each cell a zero value indicates it's a wall)
@@ -376,19 +376,19 @@ void ScenePathFinding::initMaze()
 		for each (Node* n2 in nodes)
 		{
 			if (n->position.x + CELL_SIZE == n2->position.x && n->position.y == n2->position.y) {
-				n->adyacents.push_back(duo<Node*, float>(n2, n2->terrain));
+				n->adyacents.push_back(duo<Node*, int>(n2, n2->terrain));
 				continue;
 			}
 			if (n->position.x - CELL_SIZE == n2->position.x && n->position.y == n2->position.y) {
-				n->adyacents.push_back(duo<Node*, float>(n2, n2->terrain));
+				n->adyacents.push_back(duo<Node*, int>(n2, n2->terrain));
 				continue;
 			}
 			if (n->position.x == n2->position.x && n->position.y + CELL_SIZE == n2->position.y) {
-				n->adyacents.push_back(duo<Node*, float>(n2, n2->terrain));
+				n->adyacents.push_back(duo<Node*, int>(n2, n2->terrain));
 				continue;
 			}
 			if (n->position.x == n2->position.x && n->position.y - CELL_SIZE == n2->position.y) {
-				n->adyacents.push_back(duo<Node*, float>(n2, n2->terrain));
+				n->adyacents.push_back(duo<Node*, int>(n2, n2->terrain));
 				continue;
 			}
 		}

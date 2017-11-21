@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include<map>
+#include <map>
 #include <queue>
 #include <concurrent_priority_queue.h>
 #include "Agent.h"
