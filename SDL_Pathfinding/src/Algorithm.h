@@ -2,6 +2,7 @@
 #include <vector>
 #include<map>
 #include <queue>
+#include <concurrent_priority_queue.h>
 #include "Agent.h"
 #include "Node.h"
 #include "Vector2D.h"
@@ -17,4 +18,5 @@ class Algorithm {
 		~Algorithm();
 
 		static Path BFS(Node* target, Node* origin);
+		static Path Dijkstra(Node* target, Node* origin);
 };

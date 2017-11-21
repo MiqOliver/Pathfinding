@@ -8,7 +8,7 @@ ScenePathFinding::ScenePathFinding()
 	draw_nodes = false;
 	draw_path = true;
 
-	algorithm = BFS;
+	algorithm = DIJKSTRA;
 
 	num_cell_x = SRC_WIDTH / CELL_SIZE;
 	num_cell_y = SRC_HEIGHT / CELL_SIZE;
@@ -85,10 +85,10 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 				switch (algorithm)
 				{
 				case BFS:
-
 					path = Algorithm::BFS(target, origin);
 					break;
 				case DIJKSTRA:
+					path = Algorithm::Dijkstra(target, origin);
 					break;
 				case GBFS:
 					break;
