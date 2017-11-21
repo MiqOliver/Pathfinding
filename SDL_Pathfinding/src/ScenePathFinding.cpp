@@ -159,7 +159,12 @@ void ScenePathFinding::draw()
 		//}
 		for each (pair<Vector2D, Node*> n in graph)
 		{
-			draw_circle(TheApp::Instance()->getRenderer(), n.second->position.x, n.second->position.y, CELL_SIZE / 2, 0, 100, 150, 127);
+			if(n.second->terrain == 1)
+				draw_circle(TheApp::Instance()->getRenderer(), n.second->position.x, n.second->position.y, CELL_SIZE / 2, 0, 100, 150, 127);
+			else if(n.second->terrain == 10)
+				draw_circle(TheApp::Instance()->getRenderer(), n.second->position.x, n.second->position.y, CELL_SIZE / 2, 0, 50, 255, 127);
+			else if (n.second->terrain == 20)
+				draw_circle(TheApp::Instance()->getRenderer(), n.second->position.x, n.second->position.y, CELL_SIZE / 2, 0, 255, 50, 127);
 		}
 	}
 	if (draw_grid)
@@ -315,7 +320,7 @@ void ScenePathFinding::initMaze()
 	maze_mud.push_back(rect);
 	rect = { 928, 416, 32, 96 };
 	maze_mud.push_back(rect);
-	rect = { 992, 128, 32, 96 };
+	rect = { 992, 128, 96, 32 };
 	maze_mud.push_back(rect);
 	rect = { 1152, 448, 96, 64 };
 	maze_mud.push_back(rect);
@@ -347,7 +352,7 @@ void ScenePathFinding::initMaze()
 			{
 				if (Vector2DUtils::IsInsideRect(cell_center, (float)maze_water[b].x, (float)maze_water[b].y, (float)maze_water[b].w, (float)maze_water[b].h))
 				{
-					terrain[i][j] = 2;
+					terrain[i][j] = 10;
 					break;
 				}
 			}
@@ -355,7 +360,7 @@ void ScenePathFinding::initMaze()
 			{
 				if (Vector2DUtils::IsInsideRect(cell_center, (float)maze_mud[b].x, (float)maze_mud[b].y, (float)maze_mud[b].w, (float)maze_mud[b].h))
 				{
-					terrain[i][j] = 3;
+					terrain[i][j] = 20;
 					break;
 				}
 			}
