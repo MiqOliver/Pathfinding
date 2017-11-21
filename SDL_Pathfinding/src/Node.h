@@ -16,6 +16,7 @@ struct duo {
 struct Node {
 	Vector2D position;
 	vector<duo<Node*, float>> adyacents;
+	int terrain;
 	Node(Vector2D pos) : position{ pos } {}
 	Node() = default;
 };

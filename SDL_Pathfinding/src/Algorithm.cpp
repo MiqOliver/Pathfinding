@@ -27,7 +27,7 @@ Path Algorithm::BFS(Node* target, Node* origin) {
 				frontier.push(n.x);
 				came_from[n.x] = current;
 
-				draw_circle(TheApp::Instance()->getRenderer(), n.x->position.x, n.x->position.y, CELL_SIZE / 2, 255, 50, 50, 255);
+				//draw_circle(TheApp::Instance()->getRenderer(), n.x->position.x, n.x->position.y, CELL_SIZE / 2, 255, 50, 50, 255);
 			}
 		}
 		frontier.pop();

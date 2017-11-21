@@ -30,6 +30,8 @@ private:
 	bool draw_nodes;
 	bool draw_path;
 	std::vector<SDL_Rect> maze_rects;
+	std::vector<SDL_Rect> maze_water;
+	std::vector<SDL_Rect> maze_mud;
 	void drawMaze();
 	void drawCoin();
 	SDL_Texture *background_texture;

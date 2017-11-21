@@ -13,7 +13,7 @@ ScenePathFinding::ScenePathFinding()
 	num_cell_x = SRC_WIDTH / CELL_SIZE;
 	num_cell_y = SRC_HEIGHT / CELL_SIZE;
 	initMaze();
-	loadTextures("../res/maze.png", "../res/coin.png");
+	loadTextures("../res/mazeTerrain.png", "../res/coin.png");
 
 	srand((unsigned int)time(NULL));
 
@@ -21,6 +21,7 @@ ScenePathFinding::ScenePathFinding()
 	agent->loadSpriteTexture("../res/soldier.png", 4);
 	agents.push_back(agent);
 
+	loadTextures("../res/Water.png", "../res/Mud.png");
 
 	// set agent position coords to the center of a random cell
 	Vector2D rand_cell(-1,-1);
@@ -70,19 +71,32 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 		if (event->button.button == SDL_BUTTON_LEFT)
 		{
 			Vector2D cell = pix2cell(Vector2D((float)(event->button.x), (float)(event->button.y)));
-			if (isValidCell(cell))
-			{
+			if (isValidCell(cell)) {
 				/*if (path.points.size() > 0)
 					if (path.points[path.points.size() - 1] == cell2pix(cell))
 						break;
 
 				path.points.push_back(cell2pix(cell));*/
-
+				
 				Node* target = graph[Vector2D(cell.x * CELL_SIZE + CELL_SIZE / 2, cell.y * CELL_SIZE + CELL_SIZE / 2)];
 				Vector2D originPosition = pix2cell(Vector2D((float)(agents[0]->getPosition().x), (float)(agents[0]->getPosition().y)));
 				Node* origin = graph[Vector2D(originPosition.x * CELL_SIZE + CELL_SIZE / 2, originPosition.y * CELL_SIZE + CELL_SIZE / 2)];
 
-				path = Algorithm::BFS(target, origin);
+				switch (algorithm)
+				{
+				case BFS:
+
+					path = Algorithm::BFS(target, origin);
+					break;
+				case DIJKSTRA:
+					break;
+				case GBFS:
+					break;
+				case A:
+					break;
+				default:
+					break;
+				}
 			}
 		}
 		break;
@@ -274,6 +288,38 @@ void ScenePathFinding::initMaze()
 	rect = { 928,288,32,128 };
 	maze_rects.push_back(rect);
 
+	//Water rects
+	rect = { 1120, 160, 32, 96 };
+	maze_water.push_back(rect);
+	rect = { 1120, 288, 32, 96 };
+	maze_water.push_back(rect);
+	rect = { 608, 64, 64, 160 };
+	maze_water.push_back(rect);
+	rect = { 512, 288, 256, 96 };
+	maze_water.push_back(rect);
+	rect = { 672, 512, 96, 64 };
+	maze_water.push_back(rect);
+	rect = { 288, 160, 32, 96 };
+	maze_water.push_back(rect);
+	rect = { 128, 640, 32, 96 };
+	maze_water.push_back(rect);
+
+	//Mud rects
+	rect = { 160, 192, 32, 96 };
+	maze_mud.push_back(rect);
+	rect = { 416, 160, 96, 32 };
+	maze_mud.push_back(rect);
+	rect = { 256, 384, 96, 160 };
+	maze_mud.push_back(rect);
+	rect = { 416, 672, 64, 96 };
+	maze_mud.push_back(rect);
+	rect = { 960, 448, 32, 96 };
+	maze_mud.push_back(rect);
+	rect = { 1024, 160, 32, 96 };
+	maze_mud.push_back(rect);
+	rect = { 1184, 480, 96, 64 };
+	maze_mud.push_back(rect);
+
 	// Initialize the terrain matrix (for each cell a zero value indicates it's a wall)
 	
 	// (1st) initialize all cells to 1 by default
@@ -297,10 +343,28 @@ void ScenePathFinding::initMaze()
 				    break;
 				}
 			}
+			for (unsigned int b = 0; b < maze_water.size(); b++)
+			{
+				if (Vector2DUtils::IsInsideRect(cell_center, (float)maze_water[b].x, (float)maze_water[b].y, (float)maze_water[b].w, (float)maze_water[b].h))
+				{
+					terrain[i][j] = 2;
+					break;
+				}
+			}
+			for (unsigned int b = 0; b < maze_mud.size(); b++)
+			{
+				if (Vector2DUtils::IsInsideRect(cell_center, (float)maze_mud[b].x, (float)maze_mud[b].y, (float)maze_mud[b].w, (float)maze_mud[b].h))
+				{
+					terrain[i][j] = 3;
+					break;
+				}
+			}
+
 			//Creation of the nodes in the free cells
 			if (terrain[i][j] != 0) {
 				Node* n = new Node;
 				n->position = cell_center;
+				n->terrain = terrain[i][j];
 				nodes.push_back(n);
 			}
 		}
@@ -312,19 +376,19 @@ void ScenePathFinding::initMaze()
 		for each (Node* n2 in nodes)
 		{
 			if (n->position.x + CELL_SIZE == n2->position.x && n->position.y == n2->position.y) {
-				n->adyacents.push_back(duo<Node*, float>(n2, 10.f));
+				n->adyacents.push_back(duo<Node*, float>(n2, n2->terrain));
 				continue;
 			}
 			if (n->position.x - CELL_SIZE == n2->position.x && n->position.y == n2->position.y) {
-				n->adyacents.push_back(duo<Node*, float>(n2, 10.f));
+				n->adyacents.push_back(duo<Node*, float>(n2, n2->terrain));
 				continue;
 			}
 			if (n->position.x == n2->position.x && n->position.y + CELL_SIZE == n2->position.y) {
-				n->adyacents.push_back(duo<Node*, float>(n2, 10.f));
+				n->adyacents.push_back(duo<Node*, float>(n2, n2->terrain));
 				continue;
 			}
 			if (n->position.x == n2->position.x && n->position.y - CELL_SIZE == n2->position.y) {
-				n->adyacents.push_back(duo<Node*, float>(n2, 10.f));
+				n->adyacents.push_back(duo<Node*, float>(n2, n2->terrain));
 				continue;
 			}
 		}
