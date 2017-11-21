@@ -78,8 +78,11 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 
 				path.points.push_back(cell2pix(cell));*/
 
-				//path = *Algorithm().BFS(graph[cell], graph[pix2cell(Vector2D((float)(agents[0]->getPosition().x), (float)(agents[0]->getPosition().y)))]);
-				path = Algorithm::BFS(graph[cell], nodes[550]);
+				Node* target = graph[Vector2D(cell.x * CELL_SIZE + CELL_SIZE / 2, cell.y * CELL_SIZE + CELL_SIZE / 2)];
+				Vector2D originPosition = pix2cell(Vector2D((float)(agents[0]->getPosition().x), (float)(agents[0]->getPosition().y)));
+				Node* origin = graph[Vector2D(originPosition.x * CELL_SIZE + CELL_SIZE / 2, originPosition.y * CELL_SIZE + CELL_SIZE / 2)];
+
+				path = Algorithm::BFS(target, origin);
 			}
 		}
 		break;
