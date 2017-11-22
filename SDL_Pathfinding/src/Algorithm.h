@@ -18,4 +18,7 @@ class Algorithm {
 
 		static Path BFS(Node* target, Node* origin);
 		static Path Dijkstra(Node* target, Node* origin);
+		static Path Greedy(Node* target, Node* origin);
+
+		static int Heuristic(Node* target, Node* actual);
 };

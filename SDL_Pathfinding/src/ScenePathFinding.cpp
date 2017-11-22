@@ -91,6 +91,7 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 					path = Algorithm::Dijkstra(target, origin);
 					break;
 				case GBFS:
+					path = Algorithm::Greedy(target, origin);
 					break;
 				case A:
 					break;
