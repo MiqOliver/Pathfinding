@@ -382,19 +382,19 @@ void ScenePathFinding::initMaze()
 		for each (Node* n2 in nodes)
 		{
 			if (n->position.x + CELL_SIZE == n2->position.x && n->position.y == n2->position.y) {
-				n->adyacents.push_back(duo<Node*, int>(n2, n2->terrain));
+				n->adyacents.push_back(n2);
 				continue;
 			}
 			if (n->position.x - CELL_SIZE == n2->position.x && n->position.y == n2->position.y) {
-				n->adyacents.push_back(duo<Node*, int>(n2, n2->terrain));
+				n->adyacents.push_back(n2);
 				continue;
 			}
 			if (n->position.x == n2->position.x && n->position.y + CELL_SIZE == n2->position.y) {
-				n->adyacents.push_back(duo<Node*, int>(n2, n2->terrain));
+				n->adyacents.push_back(n2);
 				continue;
 			}
 			if (n->position.x == n2->position.x && n->position.y - CELL_SIZE == n2->position.y) {
-				n->adyacents.push_back(duo<Node*, int>(n2, n2->terrain));
+				n->adyacents.push_back(n2);
 				continue;
 			}
 		}

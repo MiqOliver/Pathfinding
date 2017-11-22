@@ -15,24 +15,24 @@ struct duo {
 
 struct Node {
 	Vector2D position;
-	vector<duo<Node*, int>> adyacents;
+	vector<Node*> adyacents;
 	int terrain;
 
+	Node(Vector2D pos, int ter) : position{ pos }, terrain{ ter } {}
 	Node(Vector2D pos) : position{ pos } {}
 	Node() = default;
 
 	inline bool operator < (const Node &rhs) {
 		return terrain < rhs.terrain;
 	}
-	//inline bool operator == (const Node* rhs) {
-	//	return position == rhs->position;
-	//}
-	//inline bool operator != (const Node* rhs) {
-	//	return !(position == rhs->position);
-	//}
 };
 
 struct CompareNodesByTerrain {
+
+	bool operator()(std::pair<int, Node*> lhs, std::pair<int, Node*> rhs) {
+		return lhs.first > rhs.first;
+	}
+
 	inline bool operator () (const Node &lhs, const Node &rhs) const {
 		return lhs.terrain > rhs.terrain;
 	}
