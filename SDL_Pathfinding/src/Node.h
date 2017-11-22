@@ -22,19 +22,20 @@ struct Node {
 	Node() = default;
 
 	inline bool operator < (const Node &rhs) {
-		return terrain > rhs.terrain;
+		return terrain < rhs.terrain;
 	}
-
-	inline bool operator == (const Node* rhs) {
-		return position == rhs->position;
-	}
-
-	inline bool operator != (const Node* rhs) {
-		return !(position == rhs->position);
-	}
+	//inline bool operator == (const Node* rhs) {
+	//	return position == rhs->position;
+	//}
+	//inline bool operator != (const Node* rhs) {
+	//	return !(position == rhs->position);
+	//}
 };
 
 struct CompareNodesByTerrain {
+	inline bool operator () (const Node &lhs, const Node &rhs) const {
+		return lhs.terrain > rhs.terrain;
+	}
 	inline bool operator () (const Node* lhs, const Node* rhs) const {
 		return lhs->terrain > rhs->terrain;
 	}

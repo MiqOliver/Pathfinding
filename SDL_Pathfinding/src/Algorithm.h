@@ -5,7 +5,6 @@
 #include <concurrent_priority_queue.h>
 #include "Agent.h"
 #include "Node.h"
-#include "Vector2D.h"
 #include "Path.h"
 
 using namespace std;
