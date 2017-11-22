@@ -28,15 +28,7 @@ struct Node {
 };
 
 struct CompareNodesByTerrain {
-
 	inline bool operator()(pair<int, Node*> lhs, pair<int, Node*> rhs) {
 		return lhs.first > rhs.first;
 	}
-
-	//inline bool operator () (const Node &lhs, const Node &rhs) const {
-	//	return lhs.terrain > rhs.terrain;
-	//}
-	//inline bool operator () (const Node* lhs, const Node* rhs) const {
-	//	return lhs->terrain > rhs->terrain;
-	//}
 };

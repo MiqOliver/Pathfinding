@@ -7,7 +7,6 @@ ScenePathFinding::ScenePathFinding()
 	draw_grid = false;
 	draw_nodes = false;
 	draw_path = true;
-	draw_visited = true;
 
 	algorithm = BFS;
 
@@ -65,7 +64,7 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 		if (event->key.keysym.scancode == SDL_SCANCODE_B)			algorithm = BFS;
 		else if (event->key.keysym.scancode == SDL_SCANCODE_D)		algorithm = DIJKSTRA;
 		else if (event->key.keysym.scancode == SDL_SCANCODE_G)		algorithm = GBFS;
-		else if (event->key.keysym.scancode == SDL_SCANCODE_A)		algorithm = BFS;
+		else if (event->key.keysym.scancode == SDL_SCANCODE_A)		algorithm = A;
 		break;
 	case SDL_MOUSEMOTION:
 	case SDL_MOUSEBUTTONDOWN:
@@ -95,6 +94,7 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 					path = Algorithm::Greedy(target, origin);
 					break;
 				case A:
+					path = Algorithm::AStar(target, origin);
 					break;
 				default:
 					break;
@@ -186,14 +186,7 @@ void ScenePathFinding::draw()
 				SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)(path.points[i - 1].x), (int)(path.points[i - 1].y), (int)(path.points[i].x), (int)(path.points[i].y));
 		}
 	}
-
-	if (draw_visited) {
-		for each (Node n in Algorithm::visited)
-		{
-			draw_circle(TheApp::Instance()->getRenderer(), n.position.x, n.position.y, CELL_SIZE / 2, 0, 255, 255, 127);
-		}
-	}
-
+	
 	draw_circle(TheApp::Instance()->getRenderer(), (int)currentTarget.x, (int)currentTarget.y, 15, 255, 0, 0, 255);
 
 	agents[0]->draw();

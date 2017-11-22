@@ -28,7 +28,6 @@ private:
 	bool draw_grid;
 	bool draw_nodes;
 	bool draw_path;
-	bool draw_visited;
 	std::vector<SDL_Rect> maze_rects;
 	std::vector<SDL_Rect> maze_water;
 	std::vector<SDL_Rect> maze_mud;

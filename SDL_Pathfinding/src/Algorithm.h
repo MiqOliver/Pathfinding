@@ -26,11 +26,5 @@ public:
 	static Path BFS(Node* target, Node* origin);
 	static Path Dijkstra(Node* target, Node* origin);
 	static Path Greedy(Node* target, Node* origin);
-
-	//static inline vector<Node> GetVisited();
-
-	static vector<Node> visited;
-
-//private:
-//	static vector<Node> visited;
+	static Path AStar(Node* target, Node* origin);
 };
