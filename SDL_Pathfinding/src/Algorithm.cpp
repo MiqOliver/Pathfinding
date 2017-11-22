@@ -1,16 +1,6 @@
 #include "Algorithm.h"
 
-Algorithm::Algorithm(){
-
-}
-
-Algorithm::~Algorithm(){
-
-}
-
-int Algorithm::Heuristic(Node* target, Node* actual) {
-	return abs(target->position.x - actual->position.x) + abs(target->position.y - actual->position.y);
-}
+#pragma region Algorithms
 
 Path Algorithm::BFS(Node* target, Node* origin) {
 	Path path;
@@ -57,6 +47,8 @@ Path Algorithm::Dijkstra(Node* target, Node* origin) {
 	unordered_map<Node*, Node*> came_from;
 	unordered_map<Node*, int> cost_so_far;
 
+	visited.clear();
+
 	frontier.emplace(std::make_pair(0, origin));
 	came_from[origin] = nullptr;
 	cost_so_far[origin] = 0;
@@ -85,6 +77,7 @@ Path Algorithm::Dijkstra(Node* target, Node* origin) {
 				frontier.emplace(new_cost, n);
 			}
 		}
+		visited.push_back(*current);
 		frontier.pop();
 	}
 
@@ -97,8 +90,8 @@ Path Algorithm::Greedy(Node* target, Node* origin) {
 	priority_queue<pair<int, Node*>, vector<pair<int, Node*>>, CompareNodesByTerrain> frontier;
 	unordered_map<Node*, Node*> came_from;
 
-	frontier.push({ 0,origin });
-	came_from[origin] = origin;
+	frontier.emplace(0, origin);
+	came_from[origin] = nullptr;
 
 	while (!frontier.empty()) {
 		Node* current = frontier.top().second;
@@ -118,9 +111,9 @@ Path Algorithm::Greedy(Node* target, Node* origin) {
 
 		for each(Node* n in current->adyacents) {
 			if (!came_from[n]) {
-				int priority = Heuristic(target, current);
-				frontier.push({ priority, n });
 				came_from[n] = current;
+				float priority = Heuristic(target, n);
+				frontier.emplace(priority, n);
 			}
 		}
 		frontier.pop();
@@ -129,7 +122,18 @@ Path Algorithm::Greedy(Node* target, Node* origin) {
 	return path;
 }
 
+#pragma endregion
 
 
+inline float Algorithm::Heuristic(Node* target, Node* actual) {
+	return abs(target->position.x - actual->position.x) + abs(target->position.y - actual->position.y);
+}
 
+inline Algorithm &Algorithm::Instance() {
+	static Algorithm a;
+	return a;
+}
 
+//inline vector<Node> Algorithm::GetVisited() {
+//	return visited;
+//}

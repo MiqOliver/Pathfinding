@@ -7,6 +7,7 @@ ScenePathFinding::ScenePathFinding()
 	draw_grid = false;
 	draw_nodes = false;
 	draw_path = true;
+	draw_visited = true;
 
 	algorithm = BFS;
 
@@ -154,10 +155,6 @@ void ScenePathFinding::draw()
 	
 	//Visual debug of the nodes, draw them all
 	if (draw_nodes) {
-		//for each (Node* n in nodes)
-		//{
-		//	draw_circle(TheApp::Instance()->getRenderer(), n->position.x, n->position.y, CELL_SIZE / 2, 0, 100, 150, 127);
-		//}
 		for each (pair<Vector2D, Node*> n in graph)
 		{
 			if(n.second->terrain == 1)
@@ -187,6 +184,13 @@ void ScenePathFinding::draw()
 			draw_circle(TheApp::Instance()->getRenderer(), (int)(path.points[i].x), (int)(path.points[i].y), 15, 255, 255, 0, 255);
 			if (i > 0)
 				SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)(path.points[i - 1].x), (int)(path.points[i - 1].y), (int)(path.points[i].x), (int)(path.points[i].y));
+		}
+	}
+
+	if (draw_visited) {
+		for each (Node n in Algorithm::visited)
+		{
+			draw_circle(TheApp::Instance()->getRenderer(), n.position.x, n.position.y, CELL_SIZE / 2, 0, 255, 255, 127);
 		}
 	}
 

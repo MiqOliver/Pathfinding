@@ -29,14 +29,14 @@ struct Node {
 
 struct CompareNodesByTerrain {
 
-	bool operator()(std::pair<int, Node*> lhs, std::pair<int, Node*> rhs) {
+	inline bool operator()(pair<int, Node*> lhs, pair<int, Node*> rhs) {
 		return lhs.first > rhs.first;
 	}
 
-	inline bool operator () (const Node &lhs, const Node &rhs) const {
-		return lhs.terrain > rhs.terrain;
-	}
-	inline bool operator () (const Node* lhs, const Node* rhs) const {
-		return lhs->terrain > rhs->terrain;
-	}
+	//inline bool operator () (const Node &lhs, const Node &rhs) const {
+	//	return lhs.terrain > rhs.terrain;
+	//}
+	//inline bool operator () (const Node* lhs, const Node* rhs) const {
+	//	return lhs->terrain > rhs->terrain;
+	//}
 };

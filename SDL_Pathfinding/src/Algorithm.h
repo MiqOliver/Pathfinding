@@ -1,7 +1,8 @@
 #pragma once
 #include <vector>
-#include <unordered_map>
+#include <map>
 #include <queue>
+#include <unordered_map>
 #include <concurrent_priority_queue.h>
 #include "Agent.h"
 #include "Node.h"
@@ -9,16 +10,27 @@
 
 using namespace std;
 
-class Agent;
+#define ALGORITHM Algorithm::Instance()
 
 class Algorithm {
-	public:
-		Algorithm();
-		~Algorithm();
+private:
+	Algorithm() = default;
+	Algorithm(const Algorithm &rhs) = delete;
+	Algorithm &operator=(const Algorithm &rhs) = delete;
 
-		static Path BFS(Node* target, Node* origin);
-		static Path Dijkstra(Node* target, Node* origin);
-		static Path Greedy(Node* target, Node* origin);
+	static inline float Heuristic(Node* target, Node* actual);
 
-		static int Heuristic(Node* target, Node* actual);
+public:
+	inline static Algorithm &Instance(void);
+
+	static Path BFS(Node* target, Node* origin);
+	static Path Dijkstra(Node* target, Node* origin);
+	static Path Greedy(Node* target, Node* origin);
+
+	//static inline vector<Node> GetVisited();
+
+	static vector<Node> visited;
+
+//private:
+//	static vector<Node> visited;
 };
