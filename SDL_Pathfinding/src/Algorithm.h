@@ -18,7 +18,7 @@ private:
 	Algorithm(const Algorithm &rhs) = delete;
 	Algorithm &operator=(const Algorithm &rhs) = delete;
 
-	static inline float Heuristic(Node* target, Node* actual);
+	static inline int Heuristic(Node* target, Node* actual);
 
 public:
 	inline static Algorithm &Instance(void);
