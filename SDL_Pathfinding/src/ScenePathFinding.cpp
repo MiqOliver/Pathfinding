@@ -34,9 +34,18 @@ ScenePathFinding::ScenePathFinding()
 	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell)<3)) 
 		coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 	
+	agent[0].setTarget(coinPosition);
+
 	// PathFollowing next Target
 	currentTarget = Vector2D(0, 0);
 	currentTargetIndex = -1;
+
+	// Firtst path
+	Node* target = graph[Vector2D(agents[0]->getTarget().x * CELL_SIZE + CELL_SIZE / 2, agents[0]->getTarget().y * CELL_SIZE + CELL_SIZE / 2)];
+	Vector2D originPosition = pix2cell(Vector2D((float)(agents[0]->getPosition().x), (float)(agents[0]->getPosition().y)));
+	Node* origin = graph[Vector2D(originPosition.x * CELL_SIZE + CELL_SIZE / 2, originPosition.y * CELL_SIZE + CELL_SIZE / 2)];
+
+	path = Algorithm::AStar(target, origin);
 
 }
 
@@ -66,45 +75,10 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 		else if (event->key.keysym.scancode == SDL_SCANCODE_G)		algorithm = GBFS;
 		else if (event->key.keysym.scancode == SDL_SCANCODE_A)		algorithm = A;
 		break;
-	case SDL_MOUSEMOTION:
-	case SDL_MOUSEBUTTONDOWN:
-		if (event->button.button == SDL_BUTTON_LEFT)
-		{
-			Vector2D cell = pix2cell(Vector2D((float)(event->button.x), (float)(event->button.y)));
-			if (isValidCell(cell)) {
-				/*if (path.points.size() > 0)
-					if (path.points[path.points.size() - 1] == cell2pix(cell))
-						break;
-
-				path.points.push_back(cell2pix(cell));*/
-				
-				Node* target = graph[Vector2D(cell.x * CELL_SIZE + CELL_SIZE / 2, cell.y * CELL_SIZE + CELL_SIZE / 2)];
-				Vector2D originPosition = pix2cell(Vector2D((float)(agents[0]->getPosition().x), (float)(agents[0]->getPosition().y)));
-				Node* origin = graph[Vector2D(originPosition.x * CELL_SIZE + CELL_SIZE / 2, originPosition.y * CELL_SIZE + CELL_SIZE / 2)];
-
-				switch (algorithm)
-				{
-				case BFS:
-					path = Algorithm::BFS(target, origin);
-					break;
-				case DIJKSTRA:
-					path = Algorithm::Dijkstra(target, origin);
-					break;
-				case GBFS:
-					path = Algorithm::Greedy(target, origin);
-					break;
-				case A:
-					path = Algorithm::AStar(target, origin);
-					break;
-				default:
-					break;
-				}
-			}
-		}
-		break;
 	default:
 		break;
 	}
+
 	if ((currentTargetIndex == -1) && (path.points.size()>0))
 		currentTargetIndex = 0;
 
@@ -126,6 +100,31 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 						coinPosition = Vector2D(-1, -1);
 						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
 							coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+
+						agents[0]->setTarget(coinPosition);
+
+
+						Node* target = graph[Vector2D(agents[0]->getTarget().x * CELL_SIZE + CELL_SIZE / 2, agents[0]->getTarget().y * CELL_SIZE + CELL_SIZE / 2)];
+						Vector2D originPosition = pix2cell(Vector2D((float)(agents[0]->getPosition().x), (float)(agents[0]->getPosition().y)));
+						Node* origin = graph[Vector2D(originPosition.x * CELL_SIZE + CELL_SIZE / 2, originPosition.y * CELL_SIZE + CELL_SIZE / 2)];
+
+						switch (algorithm)
+						{
+						case BFS:
+							path = Algorithm::BFS(target, origin);
+							break;
+						case DIJKSTRA:
+							path = Algorithm::Dijkstra(target, origin);
+							break;
+						case GBFS:
+							path = Algorithm::Greedy(target, origin);
+							break;
+						case A:
+							path = Algorithm::AStar(target, origin);
+							break;
+						default:
+							break;
+						}
 					}
 				}
 				else
@@ -135,6 +134,7 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 				}
 				return;
 			}
+
 			currentTargetIndex++;
 		}
 
@@ -378,6 +378,16 @@ void ScenePathFinding::initMaze()
 	{
 		for each (Node* n2 in nodes)
 		{
+			//The "bridge"
+			if (n->position.x == CELL_SIZE / 2 && n2->position.x == SRC_WIDTH - (CELL_SIZE / 2)) {
+				if (n->position.y == n2->position.y) {
+					n->adyacents.push_back(n2);
+					n2->adyacents.push_back(n);
+				}
+			}
+
+			//---------------------------------
+
 			if (n->position.x + CELL_SIZE == n2->position.x && n->position.y == n2->position.y) {
 				n->adyacents.push_back(n2);
 				continue;
