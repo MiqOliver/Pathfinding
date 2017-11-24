@@ -1,24 +1,18 @@
 #include "OutputData.h"
 
-
 using namespace std;
-
-
-
 
 inline OutputData &OutputData::Instance() {
 	static OutputData o;
 	return o;
 }
 
-void OutputData::WriteData(algorithms algorithm, float time, int pathLength, int counter)
-{
+void OutputData::WriteData(algorithms algorithm, float time, int pathLength, int counter) {
 	ofstream data("../Algorhtms_Data.txt", ios_base::app);
 
 	data << "\n\n";
 
-	switch (algorithm)
-	{
+	switch (algorithm) {
 	case BFS:
 		data << "[BFS]\n";
 		break;
@@ -34,13 +28,12 @@ void OutputData::WriteData(algorithms algorithm, float time, int pathLength, int
 	default:
 		break;
 	}
+
 	data << "Time: ";
 	data << time;
 	data << "\nExplored Nodes: ";
 	data << counter;
 	data << "\nPath Length: ";
 	data << pathLength;
-	data.close();
-
-	
+	data.close();	
 }

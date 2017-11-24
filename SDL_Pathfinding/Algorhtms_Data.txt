@@ -1,0 +1,131 @@
+
+
+[BFS]
+Time: 1.63462e+08
+Explored Nodes: 617
+Path Length: 45
+
+[BFS]
+Time: 4
+Explored Nodes: 133
+Path Length: 14
+
+[BFS]
+Time: 12
+Explored Nodes: 385
+Path Length: 19
+
+[DIJKSTRA]
+Time: 16
+Explored Nodes: 247
+Path Length: 13
+
+[DIJKSTRA]
+Time: 5
+Explored Nodes: 59
+Path Length: 9
+
+[DIJKSTRA]
+Time: 5
+Explored Nodes: 63
+Path Length: 11
+
+[DIJKSTRA]
+Time: 34
+Explored Nodes: 523
+Path Length: 12
+
+[DIJKSTRA]
+Time: 15
+Explored Nodes: 210
+Path Length: 34
+
+[DIJKSTRA]
+Time: 46
+Explored Nodes: 654
+Path Length: 35
+
+[A*]
+Time: 13
+Explored Nodes: 191
+Path Length: 16
+
+[A*]
+Time: 26
+Explored Nodes: 409
+Path Length: 27
+
+[BFS]
+Time: 1.63629e+08
+Explored Nodes: 436
+Path Length: 29
+
+[A*]
+Time: 1.6363e+08
+Explored Nodes: 436
+Path Length: 29
+
+[BFS]
+Time: 1.63637e+08
+Explored Nodes: 111
+Path Length: 26
+
+[A*]
+Time: 1.6364e+08
+Explored Nodes: 170
+Path Length: 16
+
+[BFS]
+Time: 1.63647e+08
+Explored Nodes: 187
+Path Length: 26
+
+[BFS]
+Time: 1.64026e+08
+Explored Nodes: 535
+Path Length: 36
+
+[BFS]
+Time: 1.64051e+08
+Explored Nodes: 43
+Path Length: 9
+
+[BFS]
+Time: 17
+Explored Nodes: 533
+Path Length: 25
+
+[BFS]
+Time: 9
+Explored Nodes: 308
+Path Length: 22
+
+[BFS]
+Time: 11
+Explored Nodes: 402
+Path Length: 22
+
+[BFS]
+Time: 16
+Explored Nodes: 536
+Path Length: 24
+
+[DIJKSTRA]
+Time: 30
+Explored Nodes: 490
+Path Length: 43
+
+[DIJKSTRA]
+Time: 15
+Explored Nodes: 240
+Path Length: 12
+
+[DIJKSTRA]
+Time: 46
+Explored Nodes: 668
+Path Length: 38
+
+[DIJKSTRA]
+Time: 21
+Explored Nodes: 339
+Path Length: 31

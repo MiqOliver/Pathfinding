@@ -135,6 +135,7 @@ void ScenePathFindingCoin::update(float dtime, SDL_Event *event)
 			}
 
 			currentTarget = p.points[currentTargetIndex];
+			if (abs(agents[0]->getPosition().x - currentTarget.x) > CELL_SIZE * 4) agents[0]->teleport();
 			Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
 			agents[0]->update(steering_force, dtime, event);
 		}

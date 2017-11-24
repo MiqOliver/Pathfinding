@@ -84,11 +84,9 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 	if ((currentTargetIndex == -1) && (path.points.size()>0))
 		currentTargetIndex = 0;
 
-	if (currentTargetIndex >= 0)
-	{	
+	if (currentTargetIndex >= 0) {	
 		// Segundos transcurridos
-		if (firstTimer)
-		{
+		if (firstTimer)	{
 			endingTime = std::chrono::steady_clock::now();
 			elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endingTime - startingTime).count();
 			OutputData::WriteData(algorithm, elapsedTime, path.points.size(), node_count);
@@ -98,18 +96,14 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 		}
 
 		float dist = Vector2D::Distance(agents[0]->getPosition(), path.points[currentTargetIndex]);
-		if (dist < path.ARRIVAL_DISTANCE)
-		{
-			if (currentTargetIndex == path.points.size() - 1)
-			{
-				if (dist < 3)
-				{
+		if (dist < path.ARRIVAL_DISTANCE){
+			if (currentTargetIndex == path.points.size() - 1){
+				if (dist < 3){
 					path.points.clear();
 					currentTargetIndex = -1;
 					agents[0]->setVelocity(Vector2D(0,0));
 					// if we have arrived to the coin, replace it ina random cell!
-					if (pix2cell(agents[0]->getPosition()) == coinPosition)
-					{
+					if (pix2cell(agents[0]->getPosition()) == coinPosition)	{
 						coinPosition = Vector2D(-1, -1);
 						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
 							coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
@@ -124,8 +118,7 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 						startingTime = std::chrono::steady_clock::now();
 						firstTimer = true;
 
-						switch (algorithm)
-						{
+						switch (algorithm){
 						case BFS:
 							path = Algorithm::BFS(target, origin, &node_count);
 							break;
@@ -155,6 +148,7 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 		}
 
 		currentTarget = path.points[currentTargetIndex];
+		if (abs(agents[0]->getPosition().x - currentTarget.x) > CELL_SIZE * 4) agents[0]->teleport();
 		Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
 		agents[0]->update(steering_force, dtime, event);
 	} 

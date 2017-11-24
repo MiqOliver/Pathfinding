@@ -111,6 +111,11 @@ void Agent::update(Vector2D steering_force, float dtime, SDL_Event *event)
 	if (position.y > TheApp::Instance()->getWinSize().y) position.y = 0;
 }
 
+void Agent::teleport() {
+	if (position == CELL_SIZE) position += 38 * CELL_SIZE;
+	else position -= 38 * CELL_SIZE;
+}
+
 void Agent::draw()
 {
 	if (draw_sprite)

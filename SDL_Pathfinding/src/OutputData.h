@@ -7,8 +7,7 @@
 
 #define Output OutputData::Instance()
 
-class OutputData
-{
+class OutputData {
 private:
 	OutputData() = default;
 	OutputData(const OutputData &rhs) = delete;
