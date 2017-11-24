@@ -167,6 +167,36 @@ Path Algorithm::AStar(Node* target, Node* origin, int* count) {
 	return path;
 }
 
+
+Path Algorithm::MultipleTargets(vector<Node*> targets, Node* origin, int* count) {
+	Path path;
+	vector<Node*> targetsLeft = targets;
+	Node* start = origin;
+	
+
+	for (int i = 0; i < targets.size(); i++) {
+		Node* bestTarget = targetsLeft[0];
+		float bestCost = Heuristic(targetsLeft[0], start);
+		int index = 0;
+
+		for (int j = 0; j < targetsLeft.size(); j++) {
+			float cost = Heuristic(targetsLeft[j], start);
+			if (cost < bestCost) {
+				bestCost = cost;
+				bestTarget = targetsLeft[j];
+				index = j;
+			}
+		}
+
+		Path newPath = AStar(start, bestTarget, count);
+		path.points.insert(path.points.end(), newPath.points.begin(), newPath.points.end());
+		start = bestTarget;
+		targetsLeft.erase(targetsLeft.begin() + index);
+	}
+
+	return path;
+}
+
 #pragma endregion
 
 

@@ -120,15 +120,19 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 
 						switch (algorithm){
 						case BFS:
+							path.points.clear();
 							path = Algorithm::BFS(target, origin, &node_count);
 							break;
 						case DIJKSTRA:
+							path.points.clear();
 							path = Algorithm::Dijkstra(target, origin, &node_count);
 							break;
 						case GBFS:
+							path.points.clear();
 							path = Algorithm::Greedy(target, origin, &node_count);
 							break;
 						case A:
+							path.points.clear();
 							path = Algorithm::AStar(target, origin, &node_count);
 							break;
 						default:

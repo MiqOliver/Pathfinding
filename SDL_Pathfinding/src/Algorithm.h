@@ -28,4 +28,5 @@ public:
 	static Path Dijkstra(Node* target, Node* origin, int* count);
 	static Path Greedy(Node* target, Node* origin, int* count);
 	static Path AStar(Node* target, Node* origin, int* count);
+	static Path MultipleTargets(vector<Node*> targets, Node* origin, int* count);
 };

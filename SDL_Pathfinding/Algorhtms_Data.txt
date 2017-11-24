@@ -129,3 +129,58 @@ Path Length: 38
 Time: 21
 Explored Nodes: 339
 Path Length: 31
+
+[A*]
+Time: 1.64286e+08
+Explored Nodes: 9
+Path Length: 7
+
+[A*]
+Time: 1.64294e+08
+Explored Nodes: 131
+Path Length: 20
+
+[BFS]
+Time: 1.64572e+08
+Explored Nodes: 661
+Path Length: 33
+
+[DIJKSTRA]
+Time: 12
+Explored Nodes: 181
+Path Length: 21
+
+[A*]
+Time: 3
+Explored Nodes: 32
+Path Length: 10
+
+[A*]
+Time: 36
+Explored Nodes: 480
+Path Length: 39
+
+[GBFS]
+Time: 7
+Explored Nodes: 94
+Path Length: 51
+
+[GBFS]
+Time: 4
+Explored Nodes: 38
+Path Length: 26
+
+[GBFS]
+Time: 1
+Explored Nodes: 13
+Path Length: 10
+
+[GBFS]
+Time: 3
+Explored Nodes: 26
+Path Length: 25
+
+[GBFS]
+Time: 6
+Explored Nodes: 54
+Path Length: 39
