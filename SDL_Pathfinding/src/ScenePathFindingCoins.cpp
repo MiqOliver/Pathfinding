@@ -63,18 +63,10 @@ ScenePathFindingCoin::~ScenePathFindingCoin()
 	if (coin_texture)
 		SDL_DestroyTexture(coin_texture);
 
-	for (int i = 0; i < (int)agents.size(); i++)
-	{
-		delete agents[i];
-	}
-	for (int i = 0; i < (int)multipleTargets.size(); i++)
-	{
-		delete multipleTargets[i];
-	}
-	for (int i = 0; i < (int)nodes.size(); i++)
-	{
-		delete nodes[i];
-	}
+	agents.clear();
+	nodes.clear();
+	graph.clear();
+	multipleTargets.clear();
 }
 
 void ScenePathFindingCoin::update(float dtime, SDL_Event *event)
@@ -148,7 +140,8 @@ void ScenePathFindingCoin::update(float dtime, SDL_Event *event)
 
 		currentTarget = path.points[currentTargetIndex];
 		
-		if (abs(agents[0]->getPosition().x - currentTarget.x) > CELL_SIZE * 38) agents[0]->teleport();
+		if (abs(agents[0]->getPosition().x - currentTarget.x) > CELL_SIZE * 36 
+			&& abs(agents[0]->getPosition().y - currentTarget.y) < CELL_SIZE) agents[0]->teleport();
 		Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
 		agents[0]->update(steering_force, dtime, event);
 
@@ -212,7 +205,7 @@ void ScenePathFindingCoin::draw(){
 
 const char* ScenePathFindingCoin::getTitle()
 {
-	return "SDL Steering Behaviors :: PathFinding1 Demo";
+	return "SDL Steering Behaviors :: PathFinding MultipleCoins";
 }
 
 void ScenePathFindingCoin::drawMaze()

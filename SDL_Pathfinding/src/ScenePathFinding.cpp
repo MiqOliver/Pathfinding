@@ -49,6 +49,9 @@ ScenePathFinding::ScenePathFinding()
 
 	path = Algorithm::AStar(target, origin, &node_count);
 
+	/*text1 = new Text("", Vector2D(100, 30), TheApp::Instance()->getRenderer(), 30, false);
+	text2 = new Text("", Vector2D(100, 80), TheApp::Instance()->getRenderer(), 30, false);
+	text3 = new Text("", Vector2D(SRC_WIDTH / 2 + SRC_WIDTH / 4, 60), TheApp::Instance()->getRenderer(), 50, true);*/
 }
 
 ScenePathFinding::~ScenePathFinding()
@@ -58,22 +61,16 @@ ScenePathFinding::~ScenePathFinding()
 	if (coin_texture)
 		SDL_DestroyTexture(coin_texture);
 
-	for (int i = 0; i < (int)agents.size(); i++)
-	{
-		delete agents[i];
-	}
-	for (int i = 0; i < (int)nodes.size(); i++)
-	{
-		delete nodes[i];
-	}
-	for (int i = 0; i < (int)graph.size(); i++)
-	{
-		delete graph[i];
-	}
+	agents.clear();
+	nodes.clear();
+	graph.clear();
+
+	/*delete text1;
+	delete text2;
+	delete text3;*/
 }
 
-void ScenePathFinding::update(float dtime, SDL_Event *event)
-{
+void ScenePathFinding::update(float dtime, SDL_Event *event) {
 	/* Keyboard & Mouse events */
 	switch (event->type) {
 	case SDL_KEYDOWN:
@@ -98,6 +95,8 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 			endingTime = std::chrono::steady_clock::now();
 			elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endingTime - startingTime).count();
 			OutputData::WriteData(algorithm, elapsedTime, path.points.size(), node_count);
+			/*text1->SetText("Analyzed Nodes: " + std::to_string(node_count));
+			text2->SetText("Elapsed Time: " + std::to_string(elapsedTime));*/
 			std::cout << "\nTime difference = " << elapsedTime << std::endl;
 			node_count = 0;
 			firstTimer = false;
@@ -129,19 +128,23 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 						switch (algorithm){
 						case BFS:
 							path.points.clear();
-							path = Algorithm::BFS(target, origin, &node_count);
+							path = Algorithm::BFS(target, origin, &node_count); 
+							//text3->SetText("Breadth First Search");
 							break;
 						case DIJKSTRA:
 							path.points.clear();
 							path = Algorithm::Dijkstra(target, origin, &node_count);
+							//text3->SetText("Dijkstra");
 							break;
 						case GBFS:
 							path.points.clear();
 							path = Algorithm::Greedy(target, origin, &node_count);
+							//text3->SetText("Greedy");
 							break;
 						case A:
 							path.points.clear();
 							path = Algorithm::AStar(target, origin, &node_count);
+							//text3->SetText("AStar");
 							break;
 						default:
 							break;
@@ -160,12 +163,12 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 		}
 
 		currentTarget = path.points[currentTargetIndex];
-		if (abs(agents[0]->getPosition().x - currentTarget.x) > CELL_SIZE * 4) agents[0]->teleport();
+		if (abs(agents[0]->getPosition().x - currentTarget.x) > CELL_SIZE * 4 
+			&& abs(agents[0]->getPosition().y - currentTarget.y) < CELL_SIZE) agents[0]->teleport();
 		Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
 		agents[0]->update(steering_force, dtime, event);
 	} 
-	else
-	{
+	else{
 		agents[0]->update(Vector2D(0,0), dtime, event);
 	}
 }
@@ -214,9 +217,8 @@ void ScenePathFinding::draw()
 	agents[0]->draw();
 }
 
-const char* ScenePathFinding::getTitle()
-{
-	return "SDL Steering Behaviors :: PathFinding1 Demo";
+const char* ScenePathFinding::getTitle() {
+	return "SDL Steering Behaviors :: PathFinding Algorithms";
 }
 
 void ScenePathFinding::drawMaze()

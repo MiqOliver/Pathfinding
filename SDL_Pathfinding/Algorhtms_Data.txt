@@ -379,3 +379,318 @@ Path Length: 64
 Time: 1.72021e+08
 Explored Nodes: 1659
 Path Length: 150
+
+[MULTI]
+Time: 1.7262e+08
+Explored Nodes: 1159
+Path Length: 109
+
+[MULTI]
+Time: 1.72746e+08
+Explored Nodes: 1961
+Path Length: 139
+
+[MULTI]
+Time: 1.72773e+08
+Explored Nodes: 435
+Path Length: 54
+
+[MULTI]
+Time: 92
+Explored Nodes: 1439
+Path Length: 129
+
+[MULTI]
+Time: 103
+Explored Nodes: 1275
+Path Length: 137
+
+[MULTI]
+Time: 46
+Explored Nodes: 678
+Path Length: 86
+
+[MULTI]
+Time: 148
+Explored Nodes: 2252
+Path Length: 153
+
+[MULTI]
+Time: 77
+Explored Nodes: 1112
+Path Length: 100
+
+[MULTI]
+Time: 84
+Explored Nodes: 1215
+Path Length: 111
+
+[BFS]
+Time: 1.74874e+08
+Explored Nodes: 24
+Path Length: 8
+
+[BFS]
+Time: 16
+Explored Nodes: 513
+Path Length: 25
+
+[BFS]
+Time: 11
+Explored Nodes: 426
+Path Length: 29
+
+[BFS]
+Time: 19
+Explored Nodes: 571
+Path Length: 28
+
+[BFS]
+Time: 38
+Explored Nodes: 444
+Path Length: 21
+
+[BFS]
+Time: 32
+Explored Nodes: 307
+Path Length: 24
+
+[BFS]
+Time: 27
+Explored Nodes: 146
+Path Length: 11
+
+[BFS]
+Time: 39
+Explored Nodes: 543
+Path Length: 26
+
+[BFS]
+Time: 33
+Explored Nodes: 315
+Path Length: 19
+
+[BFS]
+Time: 36
+Explored Nodes: 478
+Path Length: 23
+
+[BFS]
+Time: 25
+Explored Nodes: 72
+Path Length: 8
+
+[BFS]
+Time: 35
+Explored Nodes: 449
+Path Length: 23
+
+[BFS]
+Time: 31
+Explored Nodes: 330
+Path Length: 22
+
+[BFS]
+Time: 41
+Explored Nodes: 625
+Path Length: 27
+
+[BFS]
+Time: 36
+Explored Nodes: 469
+Path Length: 27
+
+[BFS]
+Time: 34
+Explored Nodes: 322
+Path Length: 22
+
+[BFS]
+Time: 39
+Explored Nodes: 481
+Path Length: 23
+
+[BFS]
+Time: 40
+Explored Nodes: 589
+Path Length: 25
+
+[BFS]
+Time: 31
+Explored Nodes: 256
+Path Length: 19
+
+[BFS]
+Time: 35
+Explored Nodes: 390
+Path Length: 19
+
+[BFS]
+Time: 41
+Explored Nodes: 622
+Path Length: 26
+
+[BFS]
+Time: 29
+Explored Nodes: 198
+Path Length: 14
+
+[BFS]
+Time: 3
+Explored Nodes: 97
+Path Length: 12
+
+[BFS]
+Time: 31
+Explored Nodes: 302
+Path Length: 25
+
+[BFS]
+Time: 43
+Explored Nodes: 681
+Path Length: 33
+
+[MULTI]
+Time: 1.74973e+08
+Explored Nodes: 1080
+Path Length: 142
+
+[MULTI]
+Time: 68
+Explored Nodes: 977
+Path Length: 83
+
+[MULTI]
+Time: 107
+Explored Nodes: 1536
+Path Length: 144
+
+[MULTI]
+Time: 117
+Explored Nodes: 1746
+Path Length: 110
+
+[MULTI]
+Time: 122
+Explored Nodes: 1709
+Path Length: 156
+
+[MULTI]
+Time: 399
+Explored Nodes: 6162
+Path Length: 79
+
+[MULTI]
+Time: 397
+Explored Nodes: 6123
+Path Length: 58
+
+[MULTI]
+Time: 527
+Explored Nodes: 8207
+Path Length: 76
+
+[MULTI]
+Time: 76
+Explored Nodes: 1082
+Path Length: 31
+
+[MULTI]
+Time: 226
+Explored Nodes: 3502
+Path Length: 62
+
+[MULTI]
+Time: 116
+Explored Nodes: 1742
+Path Length: 31
+
+[MULTI]
+Time: 662
+Explored Nodes: 10192
+Path Length: 111
+
+[MULTI]
+Time: 1.75304e+08
+Explored Nodes: 892
+Path Length: 62
+
+[BFS]
+Time: 1.7534e+08
+Explored Nodes: 163
+Path Length: 25
+
+[BFS]
+Time: 1.76191e+08
+Explored Nodes: 83
+Path Length: 11
+
+[BFS]
+Time: 1
+Explored Nodes: 31
+Path Length: 5
+
+[BFS]
+Time: 3
+Explored Nodes: 74
+Path Length: 10
+
+[BFS]
+Time: 17
+Explored Nodes: 539
+Path Length: 23
+
+[MULTI]
+Time: 1.76195e+08
+Explored Nodes: 1701
+Path Length: 99
+
+[MULTI]
+Time: 259
+Explored Nodes: 4152
+Path Length: 50
+
+[BFS]
+Time: 1.7621e+08
+Explored Nodes: 479
+Path Length: 29
+
+[BFS]
+Time: 1.76211e+08
+Explored Nodes: 499
+Path Length: 39
+
+[BFS]
+Time: 1.76213e+08
+Explored Nodes: 650
+Path Length: 33
+
+[MULTI]
+Time: 1.76214e+08
+Explored Nodes: 1311
+Path Length: 112
+
+[BFS]
+Time: 1.76215e+08
+Explored Nodes: 625
+Path Length: 29
+
+[MULTI]
+Time: 1.76216e+08
+Explored Nodes: 1350
+Path Length: 110
+
+[BFS]
+Time: 1.76285e+08
+Explored Nodes: 319
+Path Length: 26
+
+[MULTI]
+Time: 1.76286e+08
+Explored Nodes: 1093
+Path Length: 80
+
+[BFS]
+Time: 1.77093e+08
+Explored Nodes: 612
+Path Length: 44

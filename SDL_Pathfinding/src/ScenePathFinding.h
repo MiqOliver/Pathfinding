@@ -8,6 +8,7 @@
 #include "Agent.h"
 #include "Path.h"
 #include "Node.h"
+//#include "text.h"
 #include "OutputData.h"
 
 class ScenePathFinding :
@@ -20,7 +21,7 @@ public:
 	void draw();
 	const char* getTitle();
 private:
-	std::vector<Agent*> agents;
+	vector<Agent*> agents;
 	Vector2D coinPosition;
 	Vector2D currentTarget;
 	int currentTargetIndex;
@@ -30,7 +31,10 @@ private:
 	int num_cell_y;
 	bool draw_grid;
 	bool draw_nodes;
-	bool draw_path;
+	bool draw_path; 
+	/*Text* text1;
+	Text* text2;
+	Text* text3;*/
 	std::vector<SDL_Rect> maze_rects;
 	std::vector<SDL_Rect> maze_water;
 	std::vector<SDL_Rect> maze_mud;
