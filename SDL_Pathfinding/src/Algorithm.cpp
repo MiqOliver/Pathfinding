@@ -19,7 +19,7 @@ Path Algorithm::BFS(Node* target, Node* origin) {
 				current = came_from[current];
 			}
 			path.points.push_back(current->position);
-			std::reverse(path.points.begin(), path.points.end());
+			reverse(path.points.begin(), path.points.end());
 			while (frontier.size()) {
 				frontier.pop();
 			}
@@ -47,7 +47,7 @@ Path Algorithm::Dijkstra(Node* target, Node* origin) {
 	unordered_map<Node*, Node*> came_from;
 	unordered_map<Node*, int> cost_so_far;
 
-	frontier.emplace(std::make_pair(0, origin));
+	frontier.emplace(make_pair(0, origin));
 	came_from[origin] = nullptr;
 	cost_so_far[origin] = 0;
 
@@ -60,7 +60,7 @@ Path Algorithm::Dijkstra(Node* target, Node* origin) {
 				current = came_from[current];
 			}
 			path.points.push_back(current->position);
-			std::reverse(path.points.begin(), path.points.end());
+			reverse(path.points.begin(), path.points.end());
 			while (frontier.size()) {
 				frontier.pop();
 			}
@@ -87,7 +87,7 @@ Path Algorithm::Greedy(Node* target, Node* origin) {
 	priority_queue<pair<int, Node*>, vector<pair<int, Node*>>, CompareNodesByTerrain> frontier;
 	unordered_map<Node*, Node*> came_from;
 
-	frontier.emplace(0, origin);
+	frontier.emplace(make_pair(0, origin));
 	came_from[origin] = nullptr;
 
 	while (!frontier.empty()) {
@@ -99,23 +99,24 @@ Path Algorithm::Greedy(Node* target, Node* origin) {
 				current = came_from[current];
 			}
 			path.points.push_back(current->position);
-			std::reverse(path.points.begin(), path.points.end());
+			reverse(path.points.begin(), path.points.end());
 			while (frontier.size()) {
 				frontier.pop();
 			}
 			return path;
 		}
 
+		frontier.pop();
+
 		for each(Node* n in current->adyacents) {
 			if (!came_from[n]) {
-				float priority = Heuristic(target, n);
+				int priority = Heuristic(target, n);
 				frontier.emplace(make_pair(priority, n));
 				came_from[n] = current;
 			}
 		}
-		frontier.pop();
 	}
-	
+
 	return path;
 }
 
@@ -126,7 +127,7 @@ Path Algorithm::AStar(Node* target, Node* origin) {
 	unordered_map<Node*, Node*> came_from;
 	unordered_map<Node*, int> cost_so_far;
 
-	frontier.emplace(std::make_pair(0, origin));
+	frontier.emplace(make_pair(0, origin));
 	came_from[origin] = nullptr;
 	cost_so_far[origin] = 0;
 
@@ -139,7 +140,7 @@ Path Algorithm::AStar(Node* target, Node* origin) {
 				current = came_from[current];
 			}
 			path.points.push_back(current->position);
-			std::reverse(path.points.begin(), path.points.end());
+			reverse(path.points.begin(), path.points.end());
 			while (frontier.size()) {
 				frontier.pop();
 			}
@@ -149,9 +150,10 @@ Path Algorithm::AStar(Node* target, Node* origin) {
 		for each(Node* n in current->adyacents) {
 			int new_cost = cost_so_far[current] + n->terrain;
 			if (!cost_so_far[n] || new_cost < cost_so_far[n]) {
+				cost_so_far[n] = new_cost;
+				int priority = new_cost + Heuristic(target, n);
+				frontier.emplace(priority, n);
 				came_from[n] = current;
-				cost_so_far[n] = new_cost + Heuristic(target, n);
-				frontier.emplace(new_cost, n);
 			}
 		}
 		frontier.pop();
@@ -163,8 +165,10 @@ Path Algorithm::AStar(Node* target, Node* origin) {
 #pragma endregion
 
 
-inline float Algorithm::Heuristic(Node* target, Node* actual) {
-	return abs(target->position.x - actual->position.x) + abs(target->position.y - actual->position.y);
+inline int Algorithm::Heuristic(Node* target, Node* actual) {
+	int x = abs(target->position.x - actual->position.x)/CELL_SIZE;
+	int y = abs(target->position.y - actual->position.y)/CELL_SIZE;
+	return x+y;
 }
 
 inline Algorithm &Algorithm::Instance() {
