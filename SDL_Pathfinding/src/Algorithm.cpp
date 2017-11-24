@@ -173,7 +173,7 @@ Path Algorithm::MultipleTargets(vector<Node*> targets, Node* origin, int* count)
 	vector<Node*> targetsLeft = targets;
 	Node* start = origin;
 	
-
+	//Solution 1 (More efficient but less effective)
 	for (int i = 0; i < targets.size(); i++) {
 		Node* bestTarget = targetsLeft[0];
 		float bestCost = Heuristic(targetsLeft[0], start);
@@ -193,6 +193,27 @@ Path Algorithm::MultipleTargets(vector<Node*> targets, Node* origin, int* count)
 		start = bestTarget;
 		targetsLeft.erase(targetsLeft.begin() + index);
 	}
+
+	//Solution 2 (More effective but less efficient)
+	/*for (int i = 0; i < targets.size(); i++) {
+		Node* bestTarget = targetsLeft[0];
+		Path bestPath = AStar(bestTarget, start, count);
+		int index = 0;
+
+		for (int j = 0; j < targetsLeft.size(); j++) {
+			Path comparePath = AStar(targetsLeft[j], start, count);
+			if (comparePath.points.size() < bestPath.points.size()) {
+				bestPath = comparePath;
+				bestTarget = targetsLeft[j];
+				index = j;
+			}
+		}
+
+		Path newPath = AStar(bestTarget, start, count);
+		path.points.insert(path.points.end(), newPath.points.begin(), newPath.points.end());
+		start = bestTarget;
+		targetsLeft.erase(targetsLeft.begin() + index);
+	}*/
 
 	return path;
 }

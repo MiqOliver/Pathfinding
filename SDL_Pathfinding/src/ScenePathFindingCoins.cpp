@@ -8,7 +8,7 @@ ScenePathFindingCoin::ScenePathFindingCoin()
 	draw_nodes = false;
 	draw_path = true;
 
-	algorithm = A;
+	algorithm = MULTI;
 
 	node_count = 0;
 
@@ -110,8 +110,8 @@ void ScenePathFindingCoin::update(float dtime, SDL_Event *event)
 					path.points.clear();
 					currentTargetIndex = -1;
 					agents[0]->setVelocity(Vector2D(0, 0));
-					// if we have arrived to the coin, replace it ina random cell!
-					if (pix2cell(agents[0]->getPosition()) == coinPosition) {
+					// if we have arrived to the coins, replace it ina random cell!
+					if (path.points.empty()) {
 						numTargets = 3 + rand() % 5;
 						for (int i = 0; i < numTargets; i++) {
 							Vector2D coinPosition(-1, -1);
@@ -144,7 +144,7 @@ void ScenePathFindingCoin::update(float dtime, SDL_Event *event)
 		}
 
 		currentTarget = path.points[currentTargetIndex];
-		if (abs(agents[0]->getPosition().x - currentTarget.x) > CELL_SIZE * 30) agents[0]->teleport();
+		if (abs(agents[0]->getPosition().x - currentTarget.x) > CELL_SIZE * 38) agents[0]->teleport();
 		Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
 		agents[0]->update(steering_force, dtime, event);
 	}
@@ -218,12 +218,13 @@ void ScenePathFindingCoin::drawMaze()
 	}
 }
 
-void ScenePathFindingCoin::drawCoin()
-{
-	Vector2D coin_coords = cell2pix(coinPosition);
-	int offset = CELL_SIZE / 2;
-	SDL_Rect dstrect = { (int)coin_coords.x - offset, (int)coin_coords.y - offset, CELL_SIZE, CELL_SIZE };
-	SDL_RenderCopy(TheApp::Instance()->getRenderer(), coin_texture, NULL, &dstrect);
+void ScenePathFindingCoin::drawCoin() {
+	for each (Node* coin in multipleTargets) {
+		Vector2D coin_coords = cell2pix(coin->position);
+		int offset = CELL_SIZE / 2;
+		SDL_Rect dstrect = { (int)coin_coords.x - offset, (int)coin_coords.y - offset, CELL_SIZE, CELL_SIZE };
+		SDL_RenderCopy(TheApp::Instance()->getRenderer(), coin_texture, NULL, &dstrect);
+	}
 }
 
 void ScenePathFindingCoin::initMaze()

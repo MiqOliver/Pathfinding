@@ -209,3 +209,73 @@ Path Length: 75
 Time: 1.68937e+08
 Explored Nodes: 871
 Path Length: 54
+
+[MULTI]
+Time: 1.6921e+08
+Explored Nodes: 480
+Path Length: 66
+
+[MULTI]
+Time: 148
+Explored Nodes: 1967
+Path Length: 157
+
+[MULTI]
+Time: 1.69405e+08
+Explored Nodes: 1456
+Path Length: 112
+
+[MULTI]
+Time: 1.69451e+08
+Explored Nodes: 988
+Path Length: 80
+
+[MULTI]
+Time: 1.6946e+08
+Explored Nodes: 1782
+Path Length: 119
+
+[MULTI]
+Time: 113
+Explored Nodes: 1616
+Path Length: 133
+
+[MULTI]
+Time: 177
+Explored Nodes: 2467
+Path Length: 232
+
+[MULTI]
+Time: 272
+Explored Nodes: 4039
+Path Length: 358
+
+[MULTI]
+Time: 259
+Explored Nodes: 3623
+Path Length: 359
+
+[MULTI]
+Time: 1.70056e+08
+Explored Nodes: 10497
+Path Length: 98
+
+[MULTI]
+Time: 1682
+Explored Nodes: 25949
+Path Length: 127
+
+[MULTI]
+Time: 4377
+Explored Nodes: 67233
+Path Length: 185
+
+[MULTI]
+Time: 1.7012e+08
+Explored Nodes: 4951
+Path Length: 92
+
+[MULTI]
+Time: 939
+Explored Nodes: 14142
+Path Length: 82

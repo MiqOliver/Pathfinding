@@ -25,6 +25,9 @@ void OutputData::WriteData(algorithms algorithm, float time, int pathLength, int
 	case A:
 		data << "[A*]\n";
 		break;
+	case MULTI:
+		data << "[MULTI]\n";
+		break;
 	default:
 		break;
 	}
