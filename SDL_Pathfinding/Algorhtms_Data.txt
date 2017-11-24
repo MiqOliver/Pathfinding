@@ -279,3 +279,103 @@ Path Length: 92
 Time: 939
 Explored Nodes: 14142
 Path Length: 82
+
+[MULTI]
+Time: 1.70718e+08
+Explored Nodes: 1364
+Path Length: 78
+
+[MULTI]
+Time: 668
+Explored Nodes: 10340
+Path Length: 84
+
+[MULTI]
+Time: 106
+Explored Nodes: 1591
+Path Length: 129
+
+[MULTI]
+Time: 1.71011e+08
+Explored Nodes: 925
+Path Length: 89
+
+[MULTI]
+Time: 109
+Explored Nodes: 1571
+Path Length: 121
+
+[MULTI]
+Time: 182
+Explored Nodes: 2480
+Path Length: 201
+
+[MULTI]
+Time: 1.7151e+08
+Explored Nodes: 1092
+Path Length: 110
+
+[MULTI]
+Time: 100
+Explored Nodes: 1375
+Path Length: 139
+
+[MULTI]
+Time: 1.71566e+08
+Explored Nodes: 2175
+Path Length: 162
+
+[MULTI]
+Time: 1.71605e+08
+Explored Nodes: 1069
+Path Length: 81
+
+[MULTI]
+Time: 1.71673e+08
+Explored Nodes: 1101
+Path Length: 88
+
+[MULTI]
+Time: 1.71726e+08
+Explored Nodes: 1098
+Path Length: 82
+
+[MULTI]
+Time: 1.71746e+08
+Explored Nodes: 1139
+Path Length: 106
+
+[MULTI]
+Time: 1.71774e+08
+Explored Nodes: 728
+Path Length: 42
+
+[MULTI]
+Time: 1.71785e+08
+Explored Nodes: 984
+Path Length: 112
+
+[MULTI]
+Time: 86
+Explored Nodes: 1272
+Path Length: 110
+
+[MULTI]
+Time: 1.7185e+08
+Explored Nodes: 1887
+Path Length: 127
+
+[MULTI]
+Time: 71
+Explored Nodes: 1037
+Path Length: 82
+
+[MULTI]
+Time: 348
+Explored Nodes: 5504
+Path Length: 64
+
+[MULTI]
+Time: 1.72021e+08
+Explored Nodes: 1659
+Path Length: 150

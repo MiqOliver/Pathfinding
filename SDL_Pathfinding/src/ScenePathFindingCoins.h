@@ -25,6 +25,7 @@ private:
 	vector<Node*> multipleTargets;
 	Vector2D coinPosition;
 	Vector2D currentTarget;
+	Vector2D coinDrawTarget;
 	int currentTargetIndex;
 	Path path;
 	int node_count;
@@ -37,7 +38,7 @@ private:
 	vector<SDL_Rect> maze_water;
 	vector<SDL_Rect> maze_mud;
 	void drawMaze();
-	void drawCoin();
+	void drawCoin(const Vector2D position);
 	SDL_Texture *background_texture;
 	SDL_Texture *coin_texture;
 	void initMaze();
@@ -54,6 +55,7 @@ private:
 	bool firstTimer = true;
 
 	algorithms algorithm;
+	int solution;
 
 	vector<Node*> nodes;
 	map<Vector2D, Node*> graph;
