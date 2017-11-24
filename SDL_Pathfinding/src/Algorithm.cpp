@@ -166,7 +166,7 @@ Path Algorithm::AStar(Node* target, Node* origin) {
 
 
 inline int Algorithm::Heuristic(Node* target, Node* actual) {
-	int x = abs(target->position.x - actual->position.x)/CELL_SIZE;
+	int x = (abs(target->position.x - SRC_WIDTH/2) - abs(target->position.x - SRC_WIDTH/2))/CELL_SIZE;
 	int y = abs(target->position.y - actual->position.y)/CELL_SIZE;
 	return x+y;
 }
