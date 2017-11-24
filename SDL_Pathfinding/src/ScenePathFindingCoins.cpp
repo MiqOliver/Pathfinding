@@ -8,6 +8,8 @@ ScenePathFindingCoin::ScenePathFindingCoin()
 	draw_nodes = false;
 	draw_path = true;
 
+	algorithm = A;
+
 	node_count = 0;
 
 	num_cell_x = SRC_WIDTH / CELL_SIZE;
@@ -30,22 +32,26 @@ ScenePathFindingCoin::ScenePathFindingCoin()
 	agents[0]->setPosition(cell2pix(rand_cell));
 
 	// set the coin in a random cell (but at least 3 cells far from the agent)
-	coinPosition = Vector2D(-1, -1);
-	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3))
-		coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+	numTargets = 3 + rand() % 5;
+	for (int i = 0; i < numTargets; i++) {
+		Vector2D coinPosition(-1, -1);
+		while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
+			coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 
-	agent[0].setTarget(coinPosition);
+		agent[0].setTarget(coinPosition);
 
+		multipleTargets.push_back(graph[Vector2D(agents[0]->getTarget().x * CELL_SIZE + CELL_SIZE / 2, agents[0]->getTarget().y * CELL_SIZE + CELL_SIZE / 2)]);
+	}
+	
 	// PathFollowing next Target
 	currentTarget = Vector2D(0, 0);
 	currentTargetIndex = -1;
 
 	// Firtst path
-	Node* target = graph[Vector2D(agents[0]->getTarget().x * CELL_SIZE + CELL_SIZE / 2, agents[0]->getTarget().y * CELL_SIZE + CELL_SIZE / 2)];
 	Vector2D originPosition = pix2cell(Vector2D((float)(agents[0]->getPosition().x), (float)(agents[0]->getPosition().y)));
 	Node* origin = graph[Vector2D(originPosition.x * CELL_SIZE + CELL_SIZE / 2, originPosition.y * CELL_SIZE + CELL_SIZE / 2)];
 
-	path[0] = Algorithm::AStar(target, origin, &node_count);
+	path = Algorithm::MultipleTargets(multipleTargets, origin, &node_count);
 
 }
 
@@ -59,6 +65,14 @@ ScenePathFindingCoin::~ScenePathFindingCoin()
 	for (int i = 0; i < (int)agents.size(); i++)
 	{
 		delete agents[i];
+	}
+	for (int i = 0; i < (int)multipleTargets.size(); i++)
+	{
+		delete multipleTargets[i];
+	}
+	for (int i = 0; i < (int)nodes.size(); i++)
+	{
+		delete nodes[i];
 	}
 }
 
@@ -74,80 +88,73 @@ void ScenePathFindingCoin::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
+	
+	if ((currentTargetIndex == -1) && (path.points.size()>0))
+		currentTargetIndex = 0;
 
+	if (currentTargetIndex >= 0) {
+		// Segundos transcurridos
+		if (firstTimer) {
+			endingTime = std::chrono::steady_clock::now();
+			elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endingTime - startingTime).count();
+			OutputData::WriteData(algorithm, elapsedTime, path.points.size(), node_count);
+			std::cout << "\nTime difference = " << elapsedTime << std::endl;
+			node_count = 0;
+			firstTimer = false;
+		}
 
-	for each (Path p in path) {
-		if ((currentTargetIndex == -1) && (p.points.size()>0))
-			currentTargetIndex = 0;
-
-		if (currentTargetIndex >= 0)
-		{
-			// Segundos transcurridos
-			if (firstTimer)
-			{
-				endingTime = std::chrono::steady_clock::now();
-				elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endingTime - startingTime).count();
-				OutputData::WriteData(algorithms::A, elapsedTime, p.points.size(), node_count);
-				std::cout << "\nTime difference = " << elapsedTime << std::endl;
-				node_count = 0;
-				firstTimer = false;
-			}
-
-			float dist = Vector2D::Distance(agents[0]->getPosition(), p.points[currentTargetIndex]);
-			if (dist < p.ARRIVAL_DISTANCE)
-			{
-				if (currentTargetIndex == p.points.size() - 1)
-				{
-					if (dist < 3)
-					{
-						p.points.clear();
-						currentTargetIndex = -1;
-						agents[0]->setVelocity(Vector2D(0, 0));
-						// if we have arrived to the coin, replace it ina random cell!
-						if (pix2cell(agents[0]->getPosition()) == coinPosition)
-						{
-							coinPosition = Vector2D(-1, -1);
+		float dist = Vector2D::Distance(agents[0]->getPosition(), path.points[currentTargetIndex]);
+		if (dist < path.ARRIVAL_DISTANCE) {
+			if (currentTargetIndex == path.points.size() - 1) {
+				if (dist < 3) {
+					path.points.clear();
+					currentTargetIndex = -1;
+					agents[0]->setVelocity(Vector2D(0, 0));
+					// if we have arrived to the coin, replace it ina random cell!
+					if (pix2cell(agents[0]->getPosition()) == coinPosition) {
+						numTargets = 3 + rand() % 5;
+						for (int i = 0; i < numTargets; i++) {
+							Vector2D coinPosition(-1, -1);
 							while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
 								coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 
 							agents[0]->setTarget(coinPosition);
 
-
-							Node* target = graph[Vector2D(agents[0]->getTarget().x * CELL_SIZE + CELL_SIZE / 2, agents[0]->getTarget().y * CELL_SIZE + CELL_SIZE / 2)];
-							Vector2D originPosition = pix2cell(Vector2D((float)(agents[0]->getPosition().x), (float)(agents[0]->getPosition().y)));
-							Node* origin = graph[Vector2D(originPosition.x * CELL_SIZE + CELL_SIZE / 2, originPosition.y * CELL_SIZE + CELL_SIZE / 2)];
-
-							startingTime = std::chrono::steady_clock::now();
-							firstTimer = true;
-
-							p = Algorithm::AStar(target, origin, &node_count);
+							multipleTargets.push_back(graph[Vector2D(agents[0]->getTarget().x * CELL_SIZE + CELL_SIZE / 2, agents[0]->getTarget().y * CELL_SIZE + CELL_SIZE / 2)]);
 						}
-					}
-					else
-					{
-						Vector2D steering_force = agents[0]->Behavior()->Arrive(agents[0], currentTarget, p.ARRIVAL_DISTANCE, dtime);
-						agents[0]->update(steering_force, dtime, event);
-					}
-					return;
-				}
+												
+						Vector2D originPosition = pix2cell(Vector2D((float)(agents[0]->getPosition().x), (float)(agents[0]->getPosition().y)));
+						Node* origin = graph[Vector2D(originPosition.x * CELL_SIZE + CELL_SIZE / 2, originPosition.y * CELL_SIZE + CELL_SIZE / 2)];
 
-				currentTargetIndex++;
+						startingTime = std::chrono::steady_clock::now();
+						firstTimer = true;
+						path.points.clear();
+						path = Algorithm::MultipleTargets(multipleTargets, origin, &node_count);
+					}
+				}
+				else
+				{
+					Vector2D steering_force = agents[0]->Behavior()->Arrive(agents[0], currentTarget, path.ARRIVAL_DISTANCE, dtime);
+					agents[0]->update(steering_force, dtime, event);
+				}
+				return;
 			}
 
-			currentTarget = p.points[currentTargetIndex];
-			if (abs(agents[0]->getPosition().x - currentTarget.x) > CELL_SIZE * 4) agents[0]->teleport();
-			Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
-			agents[0]->update(steering_force, dtime, event);
+			currentTargetIndex++;
 		}
-		else
-		{
-			agents[0]->update(Vector2D(0, 0), dtime, event);
-		}
+
+		currentTarget = path.points[currentTargetIndex];
+		if (abs(agents[0]->getPosition().x - currentTarget.x) > CELL_SIZE * 30) agents[0]->teleport();
+		Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
+		agents[0]->update(steering_force, dtime, event);
 	}
+	else
+	{
+		agents[0]->update(Vector2D(0, 0), dtime, event);
+	}	
 }
 
-void ScenePathFindingCoin::draw()
-{
+void ScenePathFindingCoin::draw(){
 	drawMaze();
 	drawCoin();
 
@@ -176,17 +183,16 @@ void ScenePathFindingCoin::draw()
 		}
 	}
 
-	for each (Path p in path) {
+	
 	if (draw_path) {
-		for (int i = 0; i < (int)p.points.size(); i++)
+		for (int i = 0; i < (int)path.points.size(); i++)
 		{
-			draw_circle(TheApp::Instance()->getRenderer(), (int)(p.points[i].x), (int)(p.points[i].y), 15, 255, 255, 0, 255);
+			draw_circle(TheApp::Instance()->getRenderer(), (int)(path.points[i].x), (int)(path.points[i].y), 15, 255, 255, 0, 255);
 			if (i > 0)
-				SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)(p.points[i - 1].x), (int)(p.points[i - 1].y), (int)(p.points[i].x), (int)(p.points[i].y));
+				SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)(path.points[i - 1].x), (int)(path.points[i - 1].y), (int)(path.points[i].x), (int)(path.points[i].y));
 		}
 	}
 
-	}
 
 	draw_circle(TheApp::Instance()->getRenderer(), (int)currentTarget.x, (int)currentTarget.y, 15, 255, 0, 0, 255);
 

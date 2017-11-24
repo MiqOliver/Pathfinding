@@ -3,7 +3,7 @@
 #include <SDL.h>
 
 //Algorithms
-enum algorithms { BFS, DIJKSTRA, GBFS, A };
+enum algorithms { BFS, DIJKSTRA, GBFS, A, MultiTarget };
 
 /* Get the resource path for resources located in res/subDir */
 std::string getResourcePath(const std::string &subDir = "");

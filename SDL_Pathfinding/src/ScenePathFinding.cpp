@@ -62,6 +62,14 @@ ScenePathFinding::~ScenePathFinding()
 	{
 		delete agents[i];
 	}
+	for (int i = 0; i < (int)nodes.size(); i++)
+	{
+		delete nodes[i];
+	}
+	for (int i = 0; i < (int)graph.size(); i++)
+	{
+		delete graph[i];
+	}
 }
 
 void ScenePathFinding::update(float dtime, SDL_Event *event)

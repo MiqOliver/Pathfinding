@@ -184,3 +184,23 @@ Path Length: 25
 Time: 6
 Explored Nodes: 54
 Path Length: 39
+
+[BFS]
+Time: 1.67143e+08
+Explored Nodes: 204
+Path Length: 17
+
+[BFS]
+Time: 12
+Explored Nodes: 438
+Path Length: 23
+
+[A*]
+Time: 1.68516e+08
+Explored Nodes: 688
+Path Length: 94
+
+[A*]
+Time: 1.68566e+08
+Explored Nodes: 888
+Path Length: 75

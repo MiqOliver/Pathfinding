@@ -20,27 +20,29 @@ public:
 	void draw();
 	const char* getTitle();
 private:
-	std::vector<Agent*> agents;
+	vector<Agent*> agents;
+	int numTargets;
+	vector<Node*> multipleTargets;
 	Vector2D coinPosition;
 	Vector2D currentTarget;
 	int currentTargetIndex;
-	Path path[3];
+	Path path;
 	int node_count;
 	int num_cell_x;
 	int num_cell_y;
 	bool draw_grid;
 	bool draw_nodes;
 	bool draw_path;
-	std::vector<SDL_Rect> maze_rects;
-	std::vector<SDL_Rect> maze_water;
-	std::vector<SDL_Rect> maze_mud;
+	vector<SDL_Rect> maze_rects;
+	vector<SDL_Rect> maze_water;
+	vector<SDL_Rect> maze_mud;
 	void drawMaze();
 	void drawCoin();
 	SDL_Texture *background_texture;
 	SDL_Texture *coin_texture;
 	void initMaze();
 	bool loadTextures(char* filename_bg, char* filename_coin);
-	std::vector< std::vector<int> > terrain;
+	vector<vector<int> > terrain;
 	Vector2D cell2pix(Vector2D cell);
 	Vector2D pix2cell(Vector2D pix);
 	bool isValidCell(Vector2D cell);
@@ -51,6 +53,8 @@ private:
 	float elapsedTime;
 	bool firstTimer = true;
 
-	std::vector<Node*> nodes;
-	std::map<Vector2D, Node*> graph;
+	algorithms algorithm;
+
+	vector<Node*> nodes;
+	map<Vector2D, Node*> graph;
 };
