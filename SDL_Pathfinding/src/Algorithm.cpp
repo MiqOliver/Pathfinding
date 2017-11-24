@@ -188,7 +188,7 @@ Path Algorithm::MultipleTargets(vector<Node*> targets, Node* origin, int* count)
 			}
 		}
 
-		Path newPath = AStar(start, bestTarget, count);
+		Path newPath = AStar(bestTarget, start, count);
 		path.points.insert(path.points.end(), newPath.points.begin(), newPath.points.end());
 		start = bestTarget;
 		targetsLeft.erase(targetsLeft.begin() + index);
