@@ -3,10 +3,12 @@
 #include <list>
 #include <map>
 #include <time.h>
+#include <chrono>
 #include "Scene.h"
 #include "Agent.h"
 #include "Path.h"
 #include "Node.h"
+#include "OutputData.h"
 
 class ScenePathFinding :
 	public Scene
@@ -23,6 +25,7 @@ private:
 	Vector2D currentTarget;
 	int currentTargetIndex;
 	Path path;
+	int node_count;
 	int num_cell_x;
 	int num_cell_y;
 	bool draw_grid;
@@ -41,6 +44,12 @@ private:
 	Vector2D cell2pix(Vector2D cell);
 	Vector2D pix2cell(Vector2D pix);
 	bool isValidCell(Vector2D cell);
+
+	// Timer para documento
+	std::chrono::steady_clock::time_point startingTime;
+	std::chrono::steady_clock::time_point endingTime;
+	float elapsedTime;
+	bool firstTimer = true;
 
 	std::vector<Node*> nodes;
 	std::map<Vector2D, Node*> graph;

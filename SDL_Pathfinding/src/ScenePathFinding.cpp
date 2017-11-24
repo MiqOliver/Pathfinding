@@ -8,6 +8,8 @@ ScenePathFinding::ScenePathFinding()
 	draw_nodes = false;
 	draw_path = true;
 
+	node_count = 0;
+
 	algorithm = BFS;
 
 	num_cell_x = SRC_WIDTH / CELL_SIZE;
@@ -45,7 +47,7 @@ ScenePathFinding::ScenePathFinding()
 	Vector2D originPosition = pix2cell(Vector2D((float)(agents[0]->getPosition().x), (float)(agents[0]->getPosition().y)));
 	Node* origin = graph[Vector2D(originPosition.x * CELL_SIZE + CELL_SIZE / 2, originPosition.y * CELL_SIZE + CELL_SIZE / 2)];
 
-	path = Algorithm::AStar(target, origin);
+	path = Algorithm::AStar(target, origin, &node_count);
 
 }
 
@@ -84,6 +86,17 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 
 	if (currentTargetIndex >= 0)
 	{	
+		// Segundos transcurridos
+		if (firstTimer)
+		{
+			endingTime = std::chrono::steady_clock::now();
+			elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endingTime - startingTime).count();
+			OutputData::WriteData(algorithm, elapsedTime, path.points.size(), node_count);
+			std::cout << "\nTime difference = " << elapsedTime << std::endl;
+			node_count = 0;
+			firstTimer = false;
+		}
+
 		float dist = Vector2D::Distance(agents[0]->getPosition(), path.points[currentTargetIndex]);
 		if (dist < path.ARRIVAL_DISTANCE)
 		{
@@ -108,19 +121,22 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 						Vector2D originPosition = pix2cell(Vector2D((float)(agents[0]->getPosition().x), (float)(agents[0]->getPosition().y)));
 						Node* origin = graph[Vector2D(originPosition.x * CELL_SIZE + CELL_SIZE / 2, originPosition.y * CELL_SIZE + CELL_SIZE / 2)];
 
+						startingTime = std::chrono::steady_clock::now();
+						firstTimer = true;
+
 						switch (algorithm)
 						{
 						case BFS:
-							path = Algorithm::BFS(target, origin);
+							path = Algorithm::BFS(target, origin, &node_count);
 							break;
 						case DIJKSTRA:
-							path = Algorithm::Dijkstra(target, origin);
+							path = Algorithm::Dijkstra(target, origin, &node_count);
 							break;
 						case GBFS:
-							path = Algorithm::Greedy(target, origin);
+							path = Algorithm::Greedy(target, origin, &node_count);
 							break;
 						case A:
-							path = Algorithm::AStar(target, origin);
+							path = Algorithm::AStar(target, origin, &node_count);
 							break;
 						default:
 							break;

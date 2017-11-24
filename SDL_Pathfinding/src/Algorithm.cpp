@@ -2,7 +2,7 @@
 
 #pragma region Algorithms
 
-Path Algorithm::BFS(Node* target, Node* origin) {
+Path Algorithm::BFS(Node* target, Node* origin, int* count) {
 	Path path;
 	queue<Node*> frontier;
 	unordered_map<Node*, Node*> came_from;
@@ -12,6 +12,7 @@ Path Algorithm::BFS(Node* target, Node* origin) {
 
 	while (!frontier.empty()) {
 		Node* current = frontier.front();
+		*count += 1;
 		
 		if (current == target) {
 			while (current != origin) {
@@ -41,7 +42,7 @@ Path Algorithm::BFS(Node* target, Node* origin) {
 }
 
 
-Path Algorithm::Dijkstra(Node* target, Node* origin) {
+Path Algorithm::Dijkstra(Node* target, Node* origin, int* count) {
 	Path path;
 	priority_queue<pair<int, Node*>, vector<pair<int, Node*>>, CompareNodesByTerrain> frontier;
 	unordered_map<Node*, Node*> came_from;
@@ -53,6 +54,7 @@ Path Algorithm::Dijkstra(Node* target, Node* origin) {
 
 	while (frontier.size()) {
 		Node* current = frontier.top().second;
+		*count += 1;
 
 		if (current == target) {
 			while (current != origin) {
@@ -82,7 +84,7 @@ Path Algorithm::Dijkstra(Node* target, Node* origin) {
 }
 
 
-Path Algorithm::Greedy(Node* target, Node* origin) {
+Path Algorithm::Greedy(Node* target, Node* origin, int* count) {
 	Path path;
 	priority_queue<pair<int, Node*>, vector<pair<int, Node*>>, CompareNodesByTerrain> frontier;
 	unordered_map<Node*, Node*> came_from;
@@ -92,6 +94,7 @@ Path Algorithm::Greedy(Node* target, Node* origin) {
 
 	while (!frontier.empty()) {
 		Node* current = frontier.top().second;
+		*count += 1;
 
 		if (current == target) {
 			while (current != origin) {
@@ -109,6 +112,7 @@ Path Algorithm::Greedy(Node* target, Node* origin) {
 		frontier.pop();
 
 		for each(Node* n in current->adyacents) {
+
 			if (!came_from[n]) {
 				int priority = Heuristic(target, n);
 				frontier.emplace(make_pair(priority, n));
@@ -121,7 +125,7 @@ Path Algorithm::Greedy(Node* target, Node* origin) {
 }
 
 
-Path Algorithm::AStar(Node* target, Node* origin) {
+Path Algorithm::AStar(Node* target, Node* origin, int* count) {
 	Path path;
 	priority_queue<pair<int, Node*>, vector<pair<int, Node*>>, CompareNodesByTerrain> frontier;
 	unordered_map<Node*, Node*> came_from;
@@ -133,6 +137,7 @@ Path Algorithm::AStar(Node* target, Node* origin) {
 
 	while (frontier.size()) {
 		Node* current = frontier.top().second;
+		*count += 1;
 
 		if (current == target) {
 			while (current != origin) {

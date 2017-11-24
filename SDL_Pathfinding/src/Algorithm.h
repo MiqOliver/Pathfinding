@@ -7,6 +7,7 @@
 #include "Agent.h"
 #include "Node.h"
 #include "Path.h"
+#include "OutputData.h"
 
 using namespace std;
 
@@ -23,8 +24,8 @@ private:
 public:
 	inline static Algorithm &Instance(void);
 
-	static Path BFS(Node* target, Node* origin);
-	static Path Dijkstra(Node* target, Node* origin);
-	static Path Greedy(Node* target, Node* origin);
-	static Path AStar(Node* target, Node* origin);
+	static Path BFS(Node* target, Node* origin, int* count);
+	static Path Dijkstra(Node* target, Node* origin, int* count);
+	static Path Greedy(Node* target, Node* origin, int* count);
+	static Path AStar(Node* target, Node* origin, int* count);
 };
